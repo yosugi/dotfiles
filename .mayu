@@ -1,0 +1,665 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 窓使いの憂鬱 - dot.mayu
+# Copyright (C) 1999-2000, TAGA Nayuta <nayuta@users.sourceforge.net>
+#
+
+define ZXCV
+
+# まずキーボード定義を読み込む
+if ( USE104 )
+  include "104.mayu"		# 104 キーボード設定
+  if ( USE109on104 )
+    include "109on104.mayu"	# 104 キーボードを 109 キーボード風に
+  endif
+else
+  include "109.mayu"		# 109 キーボード設定
+  if ( USE104on109 )
+    include "104on109.mayu"	# 109 キーボードを 104 キーボード風に
+  endif
+endif
+
+if ( USEdefault )
+  include	"default.mayu"	# Emacs ライクなさまざまな設定
+endif
+#include "tut.mayu" # TUT-code 入力用設定
+#include "tut-shiftIME.mayu" # TUT-code 入力用設定
+
+keymap Global
+
+# 以下に自分の好みのキーバインディングを設定するとよい
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# キーシーケンス
+#
+
+keyseq $WindowClose = A-F4
+keyseq $WindowMinimize = &PostMessage(ToMainWindow, 274, 61472,0)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Global キーマップ
+#
+
+keymap Global
+ key *IC-C-Yen		=> $ToggleIME		# IME ON/OFF をするキーの指定
+# key *IC-S-Space	=> $ToggleIME		# IME ON/OFF をするキーの指定
+ key *変換			=> $ToggleIME		#	〃
+
+# key C-Z 			=> $WindowMinimize  # ウィンドウ最小化
+ key C-LeftSquareBracket => ESC
+# key M-Space		=> S-M-Space
+# if ( KBD109 ) and ( ! KBD104on109 )
+#   key *半角/全角	=> *Esc			# Esc と半角/全角の入れ替え
+#   key *Esc		=> *半角/全角		#	〃
+# endif
+#key ひらがな => *Space
+#key *変換 => *Space
+#key *LAlt => $ToggleIME
+#mod alt += 無変換
+#key *無変換 => *LAlt
+mod alt += 半角/全角
+mod alt += Insert
+key *半角/全角 => *LAlt
+key *半角/全角 => *LAlt
+key *RAlt	=> $ToggleIME			# IME ON/OFF をするキーの指定
+
+mod control += 英数				# 英数を Control に
+def subst *英数	=> *LControl		#	〃
+# mod control -= LControl
+# key LControl 		=> *英数
+key *RControl		=> $CapsLock
+
+keymap2 GlobalEscape : Global => &KeymapParent
+ event prefixed		=> &HelpMessage("Global", "ESC-")
+ event before-key-down	=> &HelpMessage
+ key M-C-G		=> &Ignore
+
+keymap Global
+ if ( MAP-ESCAPE-TO-META )
+   key Escape		=> &Prefix(GlobalEscape) &EditNextModifier(M-)
+   if ( KBD109 ) and ( ! KBD104on109 )
+     key 半角/全角	=> &Prefix(GlobalEscape) &EditNextModifier(M-)
+   endif
+ endif
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 全て(ではないがだいたい)デフォルトのキーマップの定義
+#
+
+keymap	KeymapDefault => &Default
+ if ( KBD109 )
+   mod control += 英数				# 英数を Control に
+   def subst *英数	=> *LControl		#	〃
+ else
+   mod control += CapsLock			# CapsLock を Control に
+   def subst *CapsLock	=> *LControl		#	〃
+ endif
+ if ( GANA )
+   if ( KBD109 )
+     mod alt += !!無変換			# 無変換を Alt に
+     key *無変換	=> *無変換		#	〃
+     key A-無変換	=> 無変換		#	〃
+     key IC-A-K		=> 無変換		# IME で変換中の A-K は無変換
+   endif
+ endif
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# コントロールの設定
+#
+
+include	"emacsedit.mayu"
+
+window	EditControl	/:(Edit|TEdit|RichEdit(20[AW])?)$/ : EmacsEdit
+window	SysListView32	/:SysListView32$/ : EmacsMove
+window	SysTreeView32	/:SysTreeView32$/ : EmacsMove
+window	ComboBox	/:ComboBox(:Edit)?$/ : EmacsEdit
+ key M-N M-P		=> A-Down		# ドロップダウンメニューを開く
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Windows の一般的設定
+#
+
+ keyseq $WM_VSCROLL/SB_PAGEUP		= &PostMessage(ToItself, 277, 2, 0)
+ keyseq $WM_VSCROLL/SB_PAGEDOWN		= &PostMessage(ToItself, 277, 3, 0)
+
+keymap2	GeneralC-X : EmacsC-X
+ key C-S		=> C-S			# 上書き保存(S)
+ key C-W		=> LAlt F A		# 名前を付けて保存(A)...
+ key C-F		=> C-O			# 開く(O)...
+ key K			=> C-N			# 新規作成(N)
+ key C-C		=> LAlt F X		# 終了(X)
+# key C-C		=> A-Q			# 終了(X)
+# key C-C		=> $WindowClose		# 終了(X)
+
+
+## ダイアログボックス .........................................................
+
+window	DialogBox	/:#32770:/ : Global
+ key C-G		=> Escape
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 各アプリケーションの設定
+#
+
+
+## 窓使いの憂鬱 ...............................................................
+## http://mayu.sourceforge.net
+
+# 仮想キー調査ウィンドウでは全てデフォルト
+window	MayuInvestigate /mayu\.exe:#32770:mayuFocus$/ : KeymapDefault
+
+# ログウィンドウ Esc で閉じられるように
+window	MayuLog ( /mayu\.exe:#32770:Button/ \
+		&& /ログ - 窓使いの憂鬱/ ) : Global
+ key C-G		=> $WindowClose
+ key Esc		=> $WindowClose
+
+
+## Console ....................................................................
+
+ keyseq $ConsoleWindowClass/copy	= &PostMessage(ToItself, 274, 65520, 0)
+ keyseq $ConsoleWindowClass/paste	= &PostMessage(ToItself, 274, 65521, 0)
+ keyseq $ConsoleWindowClass/region	= &PostMessage(ToItself, 274, 65522, 0)
+ keyseq $ConsoleWindowClass/scroll	= &PostMessage(ToItself, 274, 65523, 0)
+ keyseq $ConsoleWindowClass/search	= &PostMessage(ToItself, 274, 65524, 0)
+ keyseq $ConsoleWindowClass/select-all	= &PostMessage(ToItself, 274, 65525, 0)
+
+window  ConsoleWindowClass /^ConsoleWindowClass$/ : Global
+ key C-S-K     C-A-K	=> A-Space C		# ウィンドウを閉じる
+ key S-Insert		=> $ConsoleWindowClass/paste
+ key S-Prior		=> $WM_VSCROLL/SB_PAGEUP
+ key S-Next		=> $WM_VSCROLL/SB_PAGEDOWN
+ key S-~NL-Num9		=> $WM_VSCROLL/SB_PAGEUP
+ key S-~NL-Num3		=> $WM_VSCROLL/SB_PAGEDOWN
+
+
+## Explorer, Internet Explorer ................................................
+
+ keyseq $Explorer/show-folder-bar = &PostMessage(ToMainWindow, 273, 41525, 0)
+
+window	ExplorerList /EXPLORER.*:SHELLDLL_DefView:.*SysListView32$/ \
+			: SysListView32
+ key S-R		=> F2			# 名前の変更
+ key C-S-Z		=> &Sync&WindowMaximize	# ウィンドウの最大化
+ key C-A-Z		=> C-&WindowMaximize	# ウィンドウの全画面化
+ key M-E		=> $Explorer/show-folder-bar # フォルダを表示
+
+window	ExplorerTree /EXPLORER.*:BaseBar:.*SysTreeView32$/ : SysTreeView32
+ key S-R		=> F2			# 名前の変更
+ key C-S-Z		=> &Sync&WindowMaximize	# ウィンドウの最大化
+ key C-A-Z		=> C-&WindowMaximize	# ウィンドウの全画面化
+ key M-E		=> $Explorer/show-folder-bar # フォルダを表示
+
+window	InternetExplorer /:Internet Explorer_Server$/ : EmacsEdit
+ key C-S-Z		=> &Sync&WindowMaximize	# ウィンドウの最大化
+ key C-A-Z		=> C-&WindowMaximize	# ウィンドウの全画面化
+
+window	MicrosoftJava	/:Microsoft VM For Java\(TM\) Host Window Class:/ \
+	: EmacsEdit
+
+
+## Emacs ......................................................................
+## http://www.gnu.org/software/emacs/windows/ntemacs.html
+
+keymap Emacsen : Global
+ key C-Yen		=> &Default
+ if ( MAP-ESCAPE-TO-META )			# ESC が M- になるのを阻止する
+   if ( KBD109 ) and ( ! KBD104on109 )
+#     key *半角/全角	=> *Esc
+#     key *Esc		=> *半角/全角
+   else
+     key Escape		=> &Default
+   endif
+ endif
+
+window	Meadow	/:Meadow$/ : Emacsen
+ key IC-M-X		=> $ToggleIME M-X
+window	MULE	/:MULE$/ : Emacsen
+window	Emacs	/:Emacs$/ : Emacsen
+
+
+## Notepad ....................................................................
+
+ keyseq $Notepad/new		= &PostMessage(ToParentWindow, 273, 9, 0)
+ keyseq $Notepad/open		= &PostMessage(ToParentWindow, 273, 10, 0)
+ keyseq $Notepad/save-as	= &PostMessage(ToParentWindow, 273, 1, 0)
+
+keymap2	NotepadC-X : GeneralC-X
+ event prefixed		=> &HelpMessage("メモ帳 C-x-", \
+	"C-x C-s\t上書き保存\r\n"	\
+	"C-x C-f\t開く\t\r\n"		\
+	"C-x k\t\t新規作成\r\n"		\
+	"C-x C-c\t終了")
+ event before-key-down	=> &HelpMessage
+ key C-S		=> $Notepad/save-as	# 上書き保存(S)
+ key C-F		=> $Notepad/open	# 開く(O)...
+ key K			=> $Notepad/new		# 新規作成(N)
+ key C-C		=> $WindowClose		# メモ帳の終了(X)
+
+#window	Notepad /:Notepad:Edit$/ : TUT-code
+# if ( !ZXCV ) key C-X	=> &Prefix(NotepadC-X)
+# key C-S		=> F3			# 検索(F)...
+# key M-J		=> C-G			# 行へ移動
+
+
+## ASTEC-X ....................................................................
+## http://www.astec.co.jp/
+
+ keyseq $ASTEC-X/copy-to-x	= &PostMessage(ToItself, 274, 16, 0)
+
+window	ASTEC-X /:ASTEC-X$/ : Global
+ key C-Yen		=> &Default
+ key *IC-IL-C-Yen	=> $ToggleIME		# IMEがオンならばIMEをオフ
+ if ( GANA )
+   key S-Insert		=> $ASTEC-X/copy-to-x S-Insert  ## (experimental) ##
+   key C-V		=> $ASTEC-X/copy-to-x C-V       ## (experimental) ##
+   key C-Y		=> $ASTEC-X/copy-to-x C-Y       ## (experimental) ##
+ endif
+
+
+## Becky! Internet Mail .......................................................
+## http://www.rimarts.co.jp/index-j.html
+# 
+# window BeckyInternetMail /Rebecca\.exe:BeckyComposeFrameClass:/ : EmacsEdit
+#  if ( !ZXCV ) key C-X	=> &Prefix(GeneralC-X)
+# 
+# window BeckyInternetMail2 /B2\.exe:Becky2ComposeFrame:/ : EmacsEdit
+#  if ( !ZXCV ) key C-X	=> &Prefix(GeneralC-X)
+
+
+## Microsoft Power Point ......................................................
+
+keymap2	PowerPointC-X : GeneralC-X
+ key C-C		=> $WindowClose		# 終了(X)
+
+window	PowerPoint /POWERPNT\.EXE:.*:(paneClassDC|REComboBox20W|RichEdit20W)$/\
+			: EmacsEdit
+ if ( !ZXCV ) key C-X	=> &Prefix(PowerPointC-X)
+
+window	PowerPoint2 /POWERPNT\.EXE:PP9FrameClass.*/ : EmacsEdit
+ if ( !ZXCV ) key C-X	=> &Prefix(PowerPointC-X)
+
+## Microsoft Visual Basic 6.0 .................................................
+
+window	VisualBasic /vb6\.exe:.*:VbaWindow$/ : EmacsEdit
+ if ( !ZXCV ) key C-X	=> &Prefix(GeneralC-X)
+
+
+## Microsoft Word .............................................................
+
+window	MicrosoftWord /WINWORD\.EXE:.*:_WwG$/ : EmacsEdit
+# if ( !ZXCV ) key C-X	=> &Prefix(GeneralC-X)
+key C-X	=> &Prefix(GeneralC-X)
+
+
+## Microsoft Excel ............................................................
+
+window	MicrosoftExcel /EXCEL\.EXE:XLMAIN:/ : EmacsEdit
+# if ( !ZXCV ) key C-X	=> &Prefix(GeneralC-X)
+key C-X	=> &Prefix(GeneralC-X)
+
+
+## Microsoft Pinball ..........................................................
+
+window MSPinball /PINBALL\.EXE:1c7c22a0-9576-11ce-bf80-444553540000$/ : Global
+ key A-Enter		=> F4
+
+
+## Netscape Navigator .........................................................
+## http://www.netscape.com/
+
+window	NetscapeNavigator /Netscape\.exe:/ : Global
+ key C-H		=> BackSpace		# BackSpace
+ key C-S		=> C-F			# 検索
+
+
+## Mozilla ....................................................................
+## http://www.mozilla.org/
+
+window	Mozilla /:MozillaWindowClass$/ : EmacsEdit
+
+
+## Personal Dictionary ........................................................
+## http://member.nifty.ne.jp/TaN/
+
+window	PersonalDictionary /PDICW32\.EXE:PDICW:ComboBox:Edit/ : EmacsEdit
+ key C-K		=> S-End S-Delete	# 行末まで削除
+ key C-Y		=> S-Insert		# PASTE
+
+
+## Real Player ................................................................
+## http://www.real.com/
+
+window RealPlayer /realplay.exe:PNGUIClass/ : Global
+ key A-Enter		=> LAlt V Z F
+ key C-R		=> C-P
+
+
+## TeraTerm ...................................................................
+## http://hp.vector.co.jp/authors/VA002416/
+
+window	TeraTerm /TTermPRO\.exe:VTWin32$/ : Global
+ key C-Slash		=> C-S-HyphenMinus	# C-_ を入力
+ key S-Prior		=> C-Prior		# スクロール
+ key S-Next		=> C-Next		# スクロール
+ key IC-M-X    IL-M-X	=> $ToggleIME M-X	# for emacs
+
+
+## Waffle .....................................................................
+## http://sakura.tsg.ne.jp/~tjkawa/witalk2/
+## Emacs 風キーバインディングにしておくこと
+
+ keyseq	$WaffleMark/cancel		= Left Right
+
+window	Waffle /WITALK2\.EXE:.*:RichEdit(20A)?$/ : Global
+keymap2	WaffleMark : Waffle => $WaffleMark/cancel &KeymapParent
+
+keymap	Waffle
+ key Home		=> &Default		# 文頭
+ key End		=> &Default		# 文末
+ key C-Space		=> &Prefix(WaffleMark)	# Mark
+ key C-A		=> &Default		# 行頭
+ key C-B		=> &Default		# ←
+ key C-C		=> &Default		# (Waffle Prefix)
+ key M-B		=> &Default		# ←(単語)
+ key C-D		=> &Default		# 削除
+ key M-D		=> &Default		# 削除(単語)
+ key C-E		=> &Default		# 行末
+ key C-F		=> &Default		# →
+ key M-F		=> &Default		# →(単語)
+ key C-G		=> &Default		# CANCEL
+ key C-H		=> &Default		# BS
+# key C-J		=> &Default		# RETURN
+ key C-K		=> &Default		# 行末まで削除
+ key M-L		=> &Default		# 小文字
+ key C-M		=> &Default		# RETURN
+ key C-N		=> &Default		# ↓
+ key C-O		=> &Default		# 一行増やす
+ key C-P		=> &Default		# ↑
+ key C-Q		=> &Prefix(KeymapDefault) # mayu に左右されないキー入力
+ key C-S		=> &Default		# 検索
+ key C-T		=> &Default		# 文字入れ替え
+ key C-V		=> Next			# 次頁 (Waffle のバグ?)
+ key M-V		=> &Default		# 前頁
+ key C-W		=> &Default		# CUT
+ key M-W		=> &Default		# COPY
+ key C-Y		=> &Default		# PASTE
+ key M-U		=> &Default		# 大文字
+ key S-Home		=> &Default		# 文頭(選択)
+ key S-End		=> &Default		# 文末(選択)
+ key S-M-Comma		=> &Default		# 文頭
+ key S-M-Period		=> &Default		# 文末
+ key M-BackSpace	=> &Default		# BS(単語)
+ key C-Slash		=> &Default		# UNDO
+
+keymap2	WaffleMark
+ key Home		=> S-C-Home	&Prefix(WaffleMark)	# 文頭
+ key End		=> S-C-End	&Prefix(WaffleMark)	# 文末
+ key C-A		=> S-Home	&Prefix(WaffleMark)	# 行頭
+ key C-B		=> S-Left	&Prefix(WaffleMark)	# ←
+ key M-B		=> S-C-Left	&Prefix(WaffleMark)	# ←(単語)
+ key C-E		=> S-End	&Prefix(WaffleMark)	# 行末
+ key C-F		=> S-Right	&Prefix(WaffleMark)	# →
+ key M-F		=> S-C-Right	&Prefix(WaffleMark)	# →(単語)
+ key C-G		=> $WaffleMark/cancel &Undefined	# キャンセル
+ key C-N		=> S-Down	&Prefix(WaffleMark)	# ↓
+ key C-P		=> S-Up		&Prefix(WaffleMark)	# ↑
+ key C-V		=> S-Next	&Prefix(WaffleMark)	# 次頁
+ key M-V		=> S-Prior	&Prefix(WaffleMark)	# 前頁
+ key C-W		=> C-W Left Right			# CUT
+ key M-W		=> M-W Left Right			# COPY
+ key S-M-Comma		=> S-C-Home	&Prefix(WaffleMark)	# 文頭
+ key S-M-Period		=> S-C-End	&Prefix(WaffleMark)	# 文末
+ key Left		=> S-Left	&Prefix(WaffleMark)	# ←
+ key Up			=> S-Up		&Prefix(WaffleMark)	# ↑
+ key Right		=> S-Right	&Prefix(WaffleMark)	# →
+ key Down		=> S-Down	&Prefix(WaffleMark)	# ↓
+
+
+## Xyzzy ......................................................................
+## http://www.jsdlab.co.jp/~kamei/
+
+window Xyzzy /xyzzy\.exe:/ : Global
+ key C-S-K     C-A-K	=> C-X C-C		# ウィンドウを閉じる
+  key C-Yen => &Default
+#  key 半角/全角	=> Esc			# Esc と半角/全角の入れ替え
+#  key *Esc		=> *半角/全角		#	〃
+# key M-K	=>	Up
+# key M-J	=>	Down
+# key M-L	=>	Right
+# key M-H	=>	Left
+
+## Windows Media Player .......................................................
+
+window WindowsMediaPlayer /mplayer2.*:(Media Player 2|VideoRenderer)/ : Global
+ key C-A		=> Space		# Play
+ key C-R		=> Space		# Play
+ key C-P		=> Space		# Pause
+ key C-S		=> Period		# Stop
+
+
+## Windows Mine Sweeper .......................................................
+
+window WindowsMineSweeper /winmine.exe:マインスイーパ$/ : Global
+ key D-Z		=> &VK(RButton)
+ key U-Z		=> &Ignore
+ key D-X		=> &VK(MButton)
+ key U-X		=> &Ignore
+ key D-C		=> &VK(LButton)
+ key U-C		=> &Ignore
+ key Q			=> F2
+ key Num1		=> &MouseMove(-16,  16)
+ key Num2		=> &MouseMove(  0,  16)
+ key Num3		=> &MouseMove( 16,  16)
+ key Num4		=> &MouseMove(-16,   0)
+ key Num6		=> &MouseMove( 16,   0)
+ key Num7		=> &MouseMove(-16, -16)
+ key Num8		=> &MouseMove(  0, -16)
+ key Num9		=> &MouseMove( 16, -16)
+
+
+## ICQ2000 ....................................................................
+## http://web.icq.com/
+
+if ( GANA )
+  window ICQMessageSession \
+	( /ICQ\.exe:#32770:Edit$/ && /Message Session/ ) : EmacsEdit
+   key Enter		=> M-S
+endif
+
+
+## Acrobat Reader .............................................................
+## http://www.adobe.co.jp/support/custsupport/library/acrwin.html
+
+window AcrobatReader /AcroRd32.exe:.*:MDIClient:/ : EmacsMove
+ key Space		=> PageDown
+ key BS			=> PageUp
+
+
+## Edmax ......................................................................
+## http://www.bekkoame.ne.jp/~t.mzaki/
+
+window EdMax-edit /edmax\.exe:.*Afx:400000:b:0:1900010:0$/ : EmacsEdit
+
+## VisualBasic ................................................................
+
+window VBTextBox /:ThunderRT6FormDC:(ThunderRT6TextBox|RichTextWndClass)$/ : EmacsEdit
+
+## dyna .......................................................................
+window dyna /AfxMDIFrame42|ListBox/ : Emacsen
+# key  CircumflexAccent 	=> HyphenMinus	
+ key  Solidus	=> C-F12		# / をインクリメンタルサーチ
+# key  Semicolon => _0			# ; を登録ディレクトリ移動
+ key  Semicolon => C-L			# ; を登録ディレクトリ移動
+ key  Colon		=> M-F12		# : を craft launch に
+ key  S-Colon	=> S-F12		# * を craft launch に
+ key C-N		=> Down			# ↓
+ key C-P		=> Up			# ↑
+ key C-B		=> Left			# ←
+ key C-F		=> Right		# →
+ key C-M		=> RETURN		# RETURN
+ key C-G		=> Escape		# CANCEL
+ key C-I		=> Tab
+
+
+## afx .......................................................................
+window afx /AFX\.EXE/ : Emacsen
+ key C-N		=> Down			# ↓
+ key C-P		=> Up			# ↑
+ key C-B		=> Left			# ←
+ key C-F		=> Right		# →
+ key C-M		=> RETURN		# RETURN
+ key C-G		=> Escape		# CANCEL
+ key C-I		=> Tab
+
+## gvim .......................................................................
+#window gvim /gvim/ : TUT-code
+
+# key *IC-C-Space	=> $ToggleIME		# IME ON/OFF をするキーの指定
+# # key *IC-S-Space	=> $ToggleIME		# IME ON/OFF をするキーの指定
+# key *IC-C-Yen		=> $ToggleIME		# IME ON/OFF をするキーの指定
+
+## Paseri .....................................................................
+window Paseri /Paseri/ : Emacsen
+
+ key *IC-C-O	=> $ToggleIME		# IME ON/OFF をするキーの指定
+ key C-B		= Left			# ←
+ key C-F		= Right			# →
+ key C-G		= Escape		# CANCEL
+ key C-N		= Down			# ↓
+ key C-P		= Up			# ↑
+ key C-A		= Home			# 行頭
+ key C-E		= End			# 行末
+ key C-Space		= &Undefined		# Mark
+ key C-W		= C-X					# CUT
+ key C-K		= $EmacsEdit/kill-line			# 行末まで削除
+ key M-W		= C-C					# COPY
+ key C-Y		= C-V					# PASTE
+ key C-D		= Delete				# 削除
+
+## クエリアナライザ............................................................
+window EdMax-edit /isqlw.exe/ : Emacsen
+
+ key *IC-C-O	=> $ToggleIME		# IME ON/OFF をするキーの指定
+ key C-B		= Left			# ←
+ key C-F		= Right			# →
+ key C-G		= Escape		# CANCEL
+
+## cdrop ......................................................................
+
+window cdrop /cdrop\.exe:/ : Emacsen
+ key C-N		=> Down			# ↓
+ key C-P		=> Up			# ↑
+ key C-M		=> RETURN		# RETURN
+
+## sleipnir ...............................................................
+window sleipnir /sleipnir\.exe:/ : global => &Default
+ key M-J		=> Down			# ↓
+ key M-K		=> Up			# ↑
+ key M-N		=> END			# 先頭
+ key M-P		=> Home			# 末尾
+ key M-Comma	=> Left			# ←
+ key M-FullStop	=> Right		# →
+ key M-Y		=> Tab
+ key M-U		=> S-Tab
+ key M-X		=> M-F4			# ウィンドウを閉じる
+ key M-M		=> RETURN		# RETURN
+ key *変換			=> $ToggleIME			# IME ON/OFF をするキーの指定
+
+ key C-B		=> Left			# ←
+ key C-F		=> Right		# →
+ key C-G		=> Escape		# CANCEL
+ key C-N		=> Down			# ↓
+ key C-P		=> Up			# ↑
+ key C-A		=> Home			# 行頭
+ key C-E		=> End			# 行末
+ key C-Space	=> &Undefined	# Mark
+ key C-H		=> BackSpace	# BackSpace
+ key C-W		=> C-X			# CUT
+ key C-K		=> $EmacsEdit/kill-line			# 行末まで削除
+ key M-W		=> C-C			# COPY
+ key C-Y		=> C-V			# PASTE
+ key C-D		=> Delete		# 削除
+ key C-M		=> RETURN		# RETURN
+ key C-Z 			=> $WindowMinimize  # ウィンドウ最小化
+
+window sleipnir_bar (/sleipnir\.exe:/&&/Sleipnir_.*Bar:/) :  Emacsen => &Default
+ key C-B		=> Left			# ←
+ key C-F		=> Right		# →
+ key C-G		=> Escape		# CANCEL
+ key C-N		=> Down			# ↓
+ key C-P		=> Up			# ↑
+ key C-A		=> Home			# 行頭
+ key C-E		=> End			# 行末
+ key C-Space	=> &Undefined	# Mark
+ key C-W		=> C-X			# CUT
+ key C-K		=> $EmacsEdit/kill-line			# 行末まで削除
+ key M-W		=> C-C			# COPY
+ key C-Y		=> C-V			# PASTE
+ key C-D		=> Delete		# 削除
+ key C-M		=> RETURN		# RETURN
+ key C-H		=> BackSpace	# BackSpace
+ key M-R		=> F5
+ key *変換		=> $ToggleIME			# IME ON/OFF をするキーの指定
+ key C-Z 			=> $WindowMinimize  # ウィンドウ最小化
+
+## etc_browser ...............................................................
+window browser /pb\.exe:/ : global => &Default
+ key M-J		=> Down			# ↓
+ key M-K		=> Up			# ↑
+ key M-N		=> END			# 先頭
+ key M-P		=> Home			# 末尾
+ key M-Comma	=> Left			# ←
+ key M-FullStop	=> Right		# →
+ key M-Y		=> Tab
+ key M-U		=> S-Tab
+ key M-X		=> M-F4			# 閉じる
+ key M-M		=> RETURN		# RETURN
+ key M-I		=> M-Right		# 進む
+ key M-O		=> M-Left		# 戻る
+ key *変換			=> $ToggleIME			# IME ON/OFF をするキーの指定
+
+ key C-B		=> Left			# ←
+ key C-F		=> Right		# →
+ key C-G		=> Escape		# CANCEL
+ key C-N		=> Down			# ↓
+ key C-P		=> Up			# ↑
+ key C-A		=> Home			# 行頭
+ key C-E		=> End			# 行末
+ key C-Space	=> &Undefined	# Mark
+ key C-H		=> BackSpace	# BackSpace
+ key C-W		=> C-X			# CUT
+ key C-K		=> $EmacsEdit/kill-line			# 行末まで削除
+ key M-W		=> C-C			# COPY
+ key C-Y		=> C-V			# PASTE
+ key C-D		=> Delete		# 削除
+ key C-M		=> RETURN		# RETURN
+ key C-Z 			=> $WindowMinimize  # ウィンドウ最小化
+
+## ffftp ...............................................................
+window ffftp /ffftp\.exe:/ : emacsEdit
+ key C-U		=> &Default
+ key C-D		=> &Default
+ key C-I		=> Tab
+ key CircumflexAccent => BackSpace
+
+## DF .....................................................................
+#window DF /ListBox/ : emacsen
+window DF /df\.exe/ : emacsen
+ key C-N		=> Down			# ↓
+ key C-P		=> Up			# ↑
+ key C-B		=> Left			# ←
+ key C-F		=> Right		# →
+ key C-M		=> RETURN		# RETURN
+ key C-G		=> Escape		# CANCEL
+
+## craft_launch  ...........................................................
+window clnch /clnch\.exe/ : emacsen
+ key C-h		=> BAckSpace
+ key M-F		=> &Default
+ key M-D		=> &Default
+ key M-Y		=> &Default
+ key M-V		=> &Default
+ key M-Z		=> &Default
+
