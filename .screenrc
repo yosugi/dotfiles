@@ -1,0 +1,28 @@
+#defencoding eucJP
+#defencoding SJIS
+#defencoding UTF-8
+#escape ^z^z
+escape  ^zz
+#escape v
+#escape ^Tt
+shell zsh
+hardstatus on
+hardstatus alwayslastline "[%m/%d %02c] %w"
+vbell off
+startup_message off
+autodetach on
+
+bind -c REGION 2 split
+bind -c REGION 1 only
+bind -c REGION 0 remove
+bind -c REGION o focus
+#bind -c REGION ^ resize
+bind x command -c REGION
+
+# ここら辺は文字化け対策
+#termcap  facit|vt100|xterm LP:G0
+#terminfo facit|vt100|xterm LP:G0
+defkanji euc
+terminfo xterm KJ=euc
+terminfo kterm KJ=euc
+terminfo vt100 AB=\E[4%p1%dm:AF=\E[3%p1%dm:KJ=euc
