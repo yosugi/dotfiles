@@ -1,6 +1,6 @@
 PROMPT='[%n@%~]$ '
-LANG=C
-
+#LANG=C
+EDITOR=vim
 # screen で最後に打ったコマンドをタイトルに表示
 preexec () {
   1="$1 " # deprecated.
@@ -36,3 +36,34 @@ bindkey -a '?' history-incremental-search-backward
 bindkey ' ' magic-space    # also do history expansion on space
 bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 
+. ~/work/github/z/z.sh
+
+autoload -U colors; colors
+
+function rprompt-git-current-branch {
+        local name st color
+
+        if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
+                return
+        fi
+        name=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
+        if [[ -z $name ]]; then
+                return
+        fi
+        st=`git status 2> /dev/null`
+        if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
+                color=${fg[green]}
+        elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
+                color=${fg[yellow]}
+        elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
+                color=${fg_bold[red]}
+        else
+                color=${fg[red]}
+        fi
+
+        echo "%{$color%}$name%{$reset_color%}"
+}
+
+setopt prompt_subst
+
+RPROMPT='[`rprompt-git-current-branch`]'
