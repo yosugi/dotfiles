@@ -1,0 +1,5 @@
+keymap j UP
+keymap k DOWN
+keymap J MOVE_DOWN
+keymap K MOVE_UP
+keymap SPC UP 20 
