@@ -1,39 +1,39 @@
-" vim:set ts=8 sts=2 sw=2 tw=0: (‚±‚Ìs‚ÉŠÖ‚µ‚Ä‚Í:help modeline‚ğQÆ)
+" vim:set ts=8 sts=2 sw=2 tw=0: (ã“ã®è¡Œã«é–¢ã—ã¦ã¯:help modelineã‚’å‚ç…§)
 "
 " An example for a Japanese version vimrc file.
-" “ú–{Œê”Å‚ÌƒfƒtƒHƒ‹ƒgİ’èƒtƒ@ƒCƒ‹(vimrc)
+" æ—¥æœ¬èªç‰ˆã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«(vimrc) - Vim7ç”¨è©¦ä½œ
 "
-" Last Change: 09-Sep-2003.
-" Maintainer:  MURAOKA Taro <koron@tka.att.ne.jp>
+" Last Change: 16-Jan-2013.
+" Maintainer:  MURAOKA Taro <koron.kaoriya@gmail.com>
 "
-" ‰ğà:
-" ‚±‚Ìƒtƒ@ƒCƒ‹‚É‚ÍVim‚Ì‹N“®‚É•K‚¸İ’è‚³‚ê‚éA•ÒW‚Ì‹““®‚ÉŠÖ‚·‚éİ’è‚ª‘
-" ‚©‚ê‚Ä‚¢‚Ü‚·BGUI‚ÉŠÖ‚·‚éİ’è‚Ígvimrc‚É‘‚©‚©‚ê‚Ä‚¢‚Ü‚·B
+" è§£èª¬:
+" ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«ã¯Vimã®èµ·å‹•æ™‚ã«å¿…ãšè¨­å®šã•ã‚Œã‚‹ã€ç·¨é›†æ™‚ã®æŒ™å‹•ã«é–¢ã™ã‚‹è¨­å®šãŒæ›¸
+" ã‹ã‚Œã¦ã„ã¾ã™ã€‚GUIã«é–¢ã™ã‚‹è¨­å®šã¯gvimrcã«æ›¸ã‹ã‹ã‚Œã¦ã„ã¾ã™ã€‚
 "
-" ŒÂl—pİ’è‚Í_vimrc‚Æ‚¢‚¤ƒtƒ@ƒCƒ‹‚ğì¬‚µ‚»‚±‚Ås‚È‚¢‚Ü‚·B_vimrc‚Í‚±‚Ìƒtƒ@
-" ƒCƒ‹‚ÌŒã‚É“Ç‚Ü‚ê‚é‚½‚ßA‚±‚±‚É‘‚©‚ê‚½“à—e‚ğã‘‚«‚µ‚Äİ’è‚·‚é‚±‚Æ‚ªo—ˆ
-" ‚Ü‚·B_vimrc‚Í$HOME‚Ü‚½‚Í$VIM‚É’u‚¢‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·B$HOME‚Í$VIM‚æ‚è‚à
-" —Dæ‚³‚êA$HOME‚Å‚İ‚Â‚©‚Á‚½ê‡$VIM‚Í“Ç‚Ü‚ê‚Ü‚¹‚ñB
+" å€‹äººç”¨è¨­å®šã¯_vimrcã¨ã„ã†ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆã—ãã“ã§è¡Œãªã„ã¾ã™ã€‚_vimrcã¯ã“ã®ãƒ•ã‚¡
+" ã‚¤ãƒ«ã®å¾Œã«èª­è¾¼ã¾ã‚Œã‚‹ãŸã‚ã€ã“ã“ã«æ›¸ã‹ã‚ŒãŸå†…å®¹ã‚’ä¸Šæ›¸ãã—ã¦è¨­å®šã™ã‚‹ã“ã¨ãŒå‡ºæ¥
+" ã¾ã™ã€‚_vimrcã¯$HOMEã¾ãŸã¯$VIMã«ç½®ã„ã¦ãŠãå¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚$HOMEã¯$VIMã‚ˆã‚Šã‚‚
+" å„ªå…ˆã•ã‚Œã€$HOMEã§ã¿ã¤ã‹ã£ãŸå ´åˆ$VIMã¯èª­è¾¼ã¾ã‚Œã¾ã›ã‚“ã€‚
 "
-" ŠÇ—ÒŒü‚¯‚É–{İ’èƒtƒ@ƒCƒ‹‚ğ’¼Ú‘‚«Š·‚¦‚¸‚ÉÏ‚Ü‚¹‚é‚±‚Æ‚ğ–Ú“I‚Æ‚µ‚ÄAƒTƒC
-" ƒgƒ[ƒJƒ‹‚Èİ’è‚ğ•Êƒtƒ@ƒCƒ‹‚Ås‚È‚¦‚é‚æ‚¤‚É”z—¶‚µ‚Ä‚ ‚è‚Ü‚·BVim‹N“®‚É
-" ƒTƒCƒgƒ[ƒJƒ‹‚Èİ’èƒtƒ@ƒCƒ‹($VIM/vimrc_local.vim)‚ª‘¶İ‚·‚é‚È‚ç‚ÎA–{İ’è
-" ƒtƒ@ƒCƒ‹‚Ìå—v•”•ª‚ª“Ç‚İ‚Ü‚ê‚é‘O‚É©“®“I‚É“Ç‚İ‚İ‚Ü‚·B
+" ç®¡ç†è€…å‘ã‘ã«æœ¬è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç›´æ¥æ›¸ãæ›ãˆãšã«æ¸ˆã¾ã›ã‚‹ã“ã¨ã‚’ç›®çš„ã¨ã—ã¦ã€ã‚µã‚¤
+" ãƒˆãƒ­ãƒ¼ã‚«ãƒ«ãªè¨­å®šã‚’åˆ¥ãƒ•ã‚¡ã‚¤ãƒ«ã§è¡Œãªãˆã‚‹ã‚ˆã†ã«é…æ…®ã—ã¦ã‚ã‚Šã¾ã™ã€‚Vimèµ·å‹•æ™‚ã«
+" ã‚µã‚¤ãƒˆãƒ­ãƒ¼ã‚«ãƒ«ãªè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«($VIM/vimrc_local.vim)ãŒå­˜åœ¨ã™ã‚‹ãªã‚‰ã°ã€æœ¬è¨­å®š
+" ãƒ•ã‚¡ã‚¤ãƒ«ã®ä¸»è¦éƒ¨åˆ†ãŒèª­ã¿è¾¼ã¾ã‚Œã‚‹å‰ã«è‡ªå‹•çš„ã«èª­ã¿è¾¼ã¿ã¾ã™ã€‚
 "
-" “Ç‚İ‚İŒãA•Ï”g:vimrc_local_finish‚ª”ñ0‚Ì’l‚Éİ’è‚³‚ê‚Ä‚¢‚½ê‡‚É‚Í–{İ
-" ’èƒtƒ@ƒCƒ‹‚É‘‚©‚ê‚½“à—e‚ÍˆêØÀs‚³‚ê‚Ü‚¹‚ñBƒfƒtƒHƒ‹ƒg“®ì‚ğ‘S‚Ä·‚µ‘Ö‚¦
-" ‚½‚¢ê‡‚É—˜—p‚µ‚Ä‰º‚³‚¢B
+" èª­ã¿è¾¼ã¿å¾Œã€å¤‰æ•°g:vimrc_local_finishãŒé0ã®å€¤ã«è¨­å®šã•ã‚Œã¦ã„ãŸå ´åˆã«ã¯æœ¬è¨­
+" å®šãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ã‹ã‚ŒãŸå†…å®¹ã¯ä¸€åˆ‡å®Ÿè¡Œã•ã‚Œã¾ã›ã‚“ã€‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå‹•ä½œã‚’å…¨ã¦å·®ã—æ›¿ãˆ
+" ãŸã„å ´åˆã«åˆ©ç”¨ã—ã¦ä¸‹ã•ã„ã€‚
 "
-" Ql:
+" å‚è€ƒ:
 "   :help vimrc
 "   :echo $HOME
 "   :echo $VIM
 "   :version
 
 "---------------------------------------------------------------------------
-" ƒTƒCƒgƒ[ƒJƒ‹‚Èİ’è($VIM/vimrc_local.vim)‚ª‚ ‚ê‚Î“Ç‚İ‚ŞB“Ç‚İ‚ñ‚¾Œã‚É
-" •Ï”g:vimrc_local_finish‚É”ñ0‚È’l‚ªİ’è‚³‚ê‚Ä‚¢‚½ê‡‚É‚ÍA‚»‚êˆÈã‚Ìİ’è
-" ƒtƒ@ƒCƒ‹‚Ì“Ç‚ğ’†~‚·‚éB
+" ã‚µã‚¤ãƒˆãƒ­ãƒ¼ã‚«ãƒ«ãªè¨­å®š($VIM/vimrc_local.vim)ãŒã‚ã‚Œã°èª­ã¿è¾¼ã‚€ã€‚èª­ã¿è¾¼ã‚“ã å¾Œã«
+" å¤‰æ•°g:vimrc_local_finishã«é0ãªå€¤ãŒè¨­å®šã•ã‚Œã¦ã„ãŸå ´åˆã«ã¯ã€ãã‚Œä»¥ä¸Šã®è¨­å®š
+" ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­è¾¼ã‚’ä¸­æ­¢ã™ã‚‹ã€‚
 if 1 && filereadable($VIM . '/vimrc_local.vim')
   unlet! g:vimrc_local_finish
   source $VIM/vimrc_local.vim
@@ -43,10 +43,10 @@ if 1 && filereadable($VIM . '/vimrc_local.vim')
 endif
 
 "---------------------------------------------------------------------------
-" ƒ†[ƒU—Dæİ’è($HOME/.vimrc_first.vim)‚ª‚ ‚ê‚Î“Ç‚İ‚ŞB“Ç‚İ‚ñ‚¾Œã‚É•Ï”
-" g:vimrc_first_finish‚É”ñ0‚È’l‚ªİ’è‚³‚ê‚Ä‚¢‚½ê‡‚É‚ÍA‚»‚êˆÈã‚Ìİ’èƒtƒ@
-" ƒCƒ‹‚Ì“Ç‚ğ’†~‚·‚éB
-if 0 && exists('$HOME') && filereadable($HOME . '/.vimrc_first.vim')
+" ãƒ¦ãƒ¼ã‚¶å„ªå…ˆè¨­å®š($HOME/.vimrc_first.vim)ãŒã‚ã‚Œã°èª­ã¿è¾¼ã‚€ã€‚èª­ã¿è¾¼ã‚“ã å¾Œã«å¤‰æ•°
+" g:vimrc_first_finishã«é0ãªå€¤ãŒè¨­å®šã•ã‚Œã¦ã„ãŸå ´åˆã«ã¯ã€ãã‚Œä»¥ä¸Šã®è¨­å®šãƒ•ã‚¡
+" ã‚¤ãƒ«ã®èª­è¾¼ã‚’ä¸­æ­¢ã™ã‚‹ã€‚
+if 1 && exists('$HOME') && filereadable($HOME . '/.vimrc_first.vim')
   unlet! g:vimrc_first_finish
   source $HOME/.vimrc_first.vim
   if exists('g:vimrc_first_finish') && g:vimrc_first_finish != 0
@@ -54,54 +54,22 @@ if 0 && exists('$HOME') && filereadable($HOME . '/.vimrc_first.vim')
   endif
 endif
 
-"---------------------------------------------------------------------------
-" (Œ±’†)
-" Vim‚ğƒ‚[ƒhƒŒƒX‚È•’Ê‚ÌƒGƒfƒBƒ^‚É•Ïg‚³‚¹‚Ä‚µ‚Ü‚¤Cream‚ğèŒy‚É—˜—p‚·‚é‚½‚ß
-" ‚Ìİ’èB$VIM‚É‰º‹LURL‚©‚ç“üè‚µ‚½cream/ƒfƒBƒŒƒNƒgƒŠ‚ğ’u‚¯‚ÎA‹N“®‚É©“®
-" “I‚É“Ç‚İ‚Ü‚ê‚éB
-if 1 && filereadable($VIM.'/cream/cream.vim')
-  let g:cream_enabled = 1
-  if filereadable($VIM.'/cream/_vimrc')
-    source $VIM/cream/_vimrc
-  endif
-  finish
-endif
+" pluginsä¸‹ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’runtimepathã¸è¿½åŠ ã™ã‚‹ã€‚
+for s:path in split(glob($VIM.'/plugins/*'), '\n')
+  if s:path !~# '\~$' && isdirectory(s:path)
+    let &runtimepath = &runtimepath.','.s:path
+  end
+endfor
+unlet s:path
 
 "---------------------------------------------------------------------------
-" “ú–{Œê‘Î‰‚Ì‚½‚ß‚Ìİ’è:
+" æ—¥æœ¬èªå¯¾å¿œã®ãŸã‚ã®è¨­å®š:
 "
-" ƒtƒ@ƒCƒ‹‚ğ“Ç‚Ş‚Éƒgƒ‰ƒC‚·‚éƒGƒ“ƒR[ƒfƒBƒ“ƒO‚Ì‡˜‚ğw’è‚·‚éBŠ¿šƒR[ƒh
-" ©“®”»•Ê‹@”\‚ğ—˜—p‚·‚éê‡‚É‚Í•Ê“riconv.dll‚ª•K—vBiconv.dll‚É‚Â‚¢‚Ä‚Í
-" README_j.txt‚ğQÆBƒIƒvƒVƒ‡ƒ“'encoding'‚ÍWindows‚©‚çæ“¾‚Å‚«‚éî•ñ‚ğŠî
-" ‚ÉA©“®“I‚Écp932(Windows)‚Éİ’è‚³‚ê‚éBUNIX‚Å‚Íİ’è‚³‚ê‚È‚¢‚±‚Æ‚à‚ ‚é‚ç‚µ
-" ‚¢B
-"
-" “ú–{Œê‚ğˆµ‚¤‚½‚ß‚É•K—v
-set encoding=japan
-" ƒtƒ@ƒCƒ‹‚ÌŠ¿šƒR[ƒh©“®”»•Ê‚Ì‚½‚ß‚É•K—vB(—viconv)
-if has('iconv')
-  set fileencodings&
-  set fileencodings+=ucs-2le,ucs-2
-  let s:enc_euc = 'euc-jp'
-  let s:enc_jis = 'iso-2022-jp'
-  " iconv‚ªJISX0213‚É‘Î‰‚µ‚Ä‚¢‚é‚©‚ğƒ`ƒFƒbƒN
-  if iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'euc-jisx0213,euc-jp'
-    let s:enc_jis = 'iso-2022-jp-3'
-  endif
-  " fileencodings‚ğ\’z
-  let &fileencodings = &fileencodings.','.s:enc_jis.',utf-8'
-  if &encoding =~# '^euc-\%(jp\|jisx0213\)$'
-    set fileencodings+=cp932
-    let &encoding = s:enc_euc
-  else
-    let &fileencodings = &fileencodings.','.s:enc_euc
-  endif
-  " ’è”‚ğˆ•ª
-  unlet s:enc_euc
-  unlet s:enc_jis
-endif
-" ƒƒbƒZ[ƒW‚ğ“ú–{Œê‚É‚·‚é (Windows‚Å‚Í©“®“I‚É”»’fEİ’è‚³‚ê‚Ä‚¢‚é)
+" ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­è¾¼ã‚€æ™‚ã«ãƒˆãƒ©ã‚¤ã™ã‚‹æ–‡å­—ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã®é †åºã‚’ç¢ºå®šã™ã‚‹ã€‚æ¼¢å­—ã‚³ãƒ¼ãƒ‰è‡ª
+" å‹•åˆ¤åˆ¥æ©Ÿèƒ½ã‚’åˆ©ç”¨ã™ã‚‹å ´åˆã«ã¯åˆ¥é€”iconv.dllãŒå¿…è¦ã€‚iconv.dllã«ã¤ã„ã¦ã¯
+" README_w32j.txtã‚’å‚ç…§ã€‚ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’èª­ã¿è¾¼ã‚€ã“ã¨ã§è¨­å®šã•ã‚Œã‚‹ã€‚
+source $VIM/plugins/kaoriya/encode_japan.vim
+" ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æ—¥æœ¬èªã«ã™ã‚‹ (Windowsã§ã¯è‡ªå‹•çš„ã«åˆ¤æ–­ãƒ»è¨­å®šã•ã‚Œã¦ã„ã‚‹)
 if !(has('win32') || has('mac')) && has('multi_lang')
   if !exists('$LANG') || $LANG.'X' ==# 'X'
     if !exists('$LC_CTYPE') || $LC_CTYPE.'X' ==# 'X'
@@ -112,283 +80,182 @@ if !(has('win32') || has('mac')) && has('multi_lang')
     endif
   endif
 endif
-" MacOS Xƒƒjƒ…[‚Ì“ú–{Œê‰» (ƒƒjƒ…[•\¦‘O‚És‚È‚¤•K—v‚ª‚ ‚é)
+" MacOS Xãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ—¥æœ¬èªåŒ– (ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºå‰ã«è¡Œãªã†å¿…è¦ãŒã‚ã‚‹)
 if has('mac')
   set langmenu=japanese
 endif
-" “ú–{Œê“ü—Í—p‚Ìkeymap‚Ìİ’è—á (ƒRƒƒ“ƒgƒAƒEƒg)
+" æ—¥æœ¬èªå…¥åŠ›ç”¨ã®keymapã®è¨­å®šä¾‹ (ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆ)
 if has('keymap')
-  " ƒ[ƒ}š‰¼–¼‚Ìkeymap
+  " ãƒ­ãƒ¼ãƒå­—ä»®åã®keymap
   "silent! set keymap=japanese
   "set iminsert=0 imsearch=0
 endif
+" éGUIæ—¥æœ¬èªã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‚’ä½¿ã£ã¦ã„ã‚‹å ´åˆã®è¨­å®š
+if !has('gui_running') && &encoding != 'cp932' && &term == 'win32'
+  set termencoding=cp932
+endif
 
 "---------------------------------------------------------------------------
-" ƒƒjƒ…[ƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚È‚¢ê‡‚Í—\‚ß'guioptions'‚ğ’²®‚µ‚Ä‚¨‚­
+" ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã—ãªã„å ´åˆã¯äºˆã‚'guioptions'ã‚’èª¿æ•´ã—ã¦ãŠã
 if 1 && !filereadable($VIMRUNTIME . '/menu.vim') && has('gui_running')
   set guioptions+=M
 endif
 
 "---------------------------------------------------------------------------
-" Bram‚Ì’ñ‹Ÿ‚·‚éİ’è—á‚ğƒCƒ“ƒNƒ‹[ƒh (•Êƒtƒ@ƒCƒ‹:vimrc_example.vim)B‚±‚ê
-" ˆÈ‘O‚Ég:no_vimrc_example‚É”ñ0‚È’l‚ğİ’è‚µ‚Ä‚¨‚¯‚ÎƒCƒ“ƒNƒ‹[ƒh‚Í‚µ‚È‚¢B
+" Bramæ°ã®æä¾›ã™ã‚‹è¨­å®šä¾‹ã‚’ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ (åˆ¥ãƒ•ã‚¡ã‚¤ãƒ«:vimrc_example.vim)ã€‚ã“ã‚Œ
+" ä»¥å‰ã«g:no_vimrc_exampleã«é0ãªå€¤ã‚’è¨­å®šã—ã¦ãŠã‘ã°ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã¯ã—ãªã„ã€‚
 if 1 && (!exists('g:no_vimrc_example') || g:no_vimrc_example == 0)
-  source $VIMRUNTIME/vimrc_example.vim
+  if &guioptions !~# "M"
+    " vimrc_example.vimã‚’èª­ã¿è¾¼ã‚€æ™‚ã¯guioptionsã«Mãƒ•ãƒ©ã‚°ã‚’ã¤ã‘ã¦ã€syntax on
+    " ã‚„filetype plugin onãŒå¼•ãèµ·ã“ã™menu.vimã®èª­ã¿è¾¼ã¿ã‚’é¿ã‘ã‚‹ã€‚ã“ã†ã—ãªã„
+    " ã¨encã«å¯¾å¿œã™ã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ãŒèª­ã¿è¾¼ã¾ã‚Œã¦ã—ã¾ã„ã€ã“ã‚Œã®å¾Œã§èª­ã¿è¾¼
+    " ã¾ã‚Œã‚‹.vimrcã§encãŒè¨­å®šã•ã‚ŒãŸå ´åˆã«ãã®è¨­å®šãŒåæ˜ ã•ã‚Œãšãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒæ–‡å­—
+    " åŒ–ã‘ã¦ã—ã¾ã†ã€‚
+    set guioptions+=M
+    source $VIMRUNTIME/vimrc_example.vim
+    set guioptions-=M
+  else
+    source $VIMRUNTIME/vimrc_example.vim
+  endif
 endif
 
 "---------------------------------------------------------------------------
-" ŒŸõ‚Ì‹““®‚ÉŠÖ‚·‚éİ’è:
+" æ¤œç´¢ã®æŒ™å‹•ã«é–¢ã™ã‚‹è¨­å®š:
 "
-" ŒŸõ‚É‘å•¶š¬•¶š‚ğ–³‹ (noignorecase:–³‹‚µ‚È‚¢)
+" æ¤œç´¢æ™‚ã«å¤§æ–‡å­—å°æ–‡å­—ã‚’ç„¡è¦– (noignorecase:ç„¡è¦–ã—ãªã„)
 set ignorecase
-" ‘å•¶š¬•¶š‚Ì—¼•û‚ªŠÜ‚Ü‚ê‚Ä‚¢‚éê‡‚Í‘å•¶š¬•¶š‚ğ‹æ•Ê
+" å¤§æ–‡å­—å°æ–‡å­—ã®ä¸¡æ–¹ãŒå«ã¾ã‚Œã¦ã„ã‚‹å ´åˆã¯å¤§æ–‡å­—å°æ–‡å­—ã‚’åŒºåˆ¥
 set smartcase
 
 "---------------------------------------------------------------------------
-" •ÒW‚ÉŠÖ‚·‚éİ’è:
+" ç·¨é›†ã«é–¢ã™ã‚‹è¨­å®š:
 "
-" ƒ^ƒu‚Ì‰æ–Êã‚Å‚Ì•
+" ã‚¿ãƒ–ã®ç”»é¢ä¸Šã§ã®å¹…
 set tabstop=8
-" ƒ^ƒu‚ğƒXƒy[ƒX‚É“WŠJ‚µ‚È‚¢ (expandtab:“WŠJ‚·‚é)
+" ã‚¿ãƒ–ã‚’ã‚¹ãƒšãƒ¼ã‚¹ã«å±•é–‹ã—ãªã„ (expandtab:å±•é–‹ã™ã‚‹)
 set noexpandtab
-" ©“®“I‚ÉƒCƒ“ƒfƒ“ƒg‚·‚é (noautoindent:ƒCƒ“ƒfƒ“ƒg‚µ‚È‚¢)
+" è‡ªå‹•çš„ã«ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã™ã‚‹ (noautoindent:ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã—ãªã„)
 set autoindent
-" ƒoƒbƒNƒXƒy[ƒX‚ÅƒCƒ“ƒfƒ“ƒg‚â‰üs‚ğíœ‚Å‚«‚é‚æ‚¤‚É‚·‚é
-set backspace=2
-" ŒŸõ‚Éƒtƒ@ƒCƒ‹‚ÌÅŒã‚Ü‚Ås‚Á‚½‚çÅ‰‚É–ß‚é (nowrapscan:–ß‚ç‚È‚¢)
+" ãƒãƒƒã‚¯ã‚¹ãƒšãƒ¼ã‚¹ã§ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã‚„æ”¹è¡Œã‚’å‰Šé™¤ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
+set backspace=indent,eol,start
+" æ¤œç´¢æ™‚ã«ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ€å¾Œã¾ã§è¡Œã£ãŸã‚‰æœ€åˆã«æˆ»ã‚‹ (nowrapscan:æˆ»ã‚‰ãªã„)
 set wrapscan
-" Š‡ŒÊ“ü—Í‚É‘Î‰‚·‚éŠ‡ŒÊ‚ğ•\¦ (noshowmatch:•\¦‚µ‚È‚¢)
+" æ‹¬å¼§å…¥åŠ›æ™‚ã«å¯¾å¿œã™ã‚‹æ‹¬å¼§ã‚’è¡¨ç¤º (noshowmatch:è¡¨ç¤ºã—ãªã„)
 set showmatch
-" ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“•âŠ®‚·‚é‚Æ‚«‚É‹­‰»‚³‚ê‚½‚à‚Ì‚ğg‚¤(QÆ :help wildmenu)
+" ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³è£œå®Œã™ã‚‹ã¨ãã«å¼·åŒ–ã•ã‚ŒãŸã‚‚ã®ã‚’ä½¿ã†(å‚ç…§ :help wildmenu)
 set wildmenu
-" ƒeƒLƒXƒg‘}“ü’†‚Ì©“®Ü‚è•Ô‚µ‚ğ“ú–{Œê‚É‘Î‰‚³‚¹‚é
+" ãƒ†ã‚­ã‚¹ãƒˆæŒ¿å…¥ä¸­ã®è‡ªå‹•æŠ˜ã‚Šè¿”ã—ã‚’æ—¥æœ¬èªã«å¯¾å¿œã•ã›ã‚‹
 set formatoptions+=mM
-" “ú–{Œê®Œ`ƒXƒNƒŠƒvƒg(by. ¼‰ª‘ñ—m‚³‚ñ)—p‚Ìİ’è
-let format_allow_over_tw = 1	" ‚Ô‚ç‰º‚è‰Â”\•
 
 "---------------------------------------------------------------------------
-" GUIŒÅ—L‚Å‚Í‚È‚¢‰æ–Ê•\¦‚Ìİ’è:
+" GUIå›ºæœ‰ã§ã¯ãªã„ç”»é¢è¡¨ç¤ºã®è¨­å®š:
 "
-" s”Ô†‚ğ”ñ•\¦ (number:•\¦)
+" è¡Œç•ªå·ã‚’éè¡¨ç¤º (number:è¡¨ç¤º)
 set nonumber
-" ƒ‹[ƒ‰[‚ğ•\¦ (noruler:”ñ•\¦)
+" ãƒ«ãƒ¼ãƒ©ãƒ¼ã‚’è¡¨ç¤º (noruler:éè¡¨ç¤º)
 set ruler
-" ƒ^ƒu‚â‰üs‚ğ•\¦ (list:•\¦)
+" ã‚¿ãƒ–ã‚„æ”¹è¡Œã‚’è¡¨ç¤º (list:è¡¨ç¤º)
 set nolist
-" ‚Ç‚Ì•¶š‚Åƒ^ƒu‚â‰üs‚ğ•\¦‚·‚é‚©‚ğİ’è
+" ã©ã®æ–‡å­—ã§ã‚¿ãƒ–ã‚„æ”¹è¡Œã‚’è¡¨ç¤ºã™ã‚‹ã‹ã‚’è¨­å®š
 "set listchars=tab:>-,extends:<,trail:-,eol:<
-" ’·‚¢s‚ğÜ‚è•Ô‚µ‚Ä•\¦ (nowrap:Ü‚è•Ô‚³‚È‚¢)
+" é•·ã„è¡Œã‚’æŠ˜ã‚Šè¿”ã—ã¦è¡¨ç¤º (nowrap:æŠ˜ã‚Šè¿”ã•ãªã„)
 set wrap
-" í‚ÉƒXƒe[ƒ^ƒXs‚ğ•\¦ (Ú×‚Í:he laststatus)
+" å¸¸ã«ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¡Œã‚’è¡¨ç¤º (è©³ç´°ã¯:he laststatus)
 set laststatus=2
-" ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“‚Ì‚‚³ (Windows—pgvimg—p‚Ígvimrc‚ğ•ÒW‚·‚é‚±‚Æ)
+" ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ã®é«˜ã• (Windowsç”¨gvimä½¿ç”¨æ™‚ã¯gvimrcã‚’ç·¨é›†ã™ã‚‹ã“ã¨)
 set cmdheight=2
-" ƒRƒ}ƒ“ƒh‚ğƒXƒe[ƒ^ƒXs‚É•\¦
+" ã‚³ãƒãƒ³ãƒ‰ã‚’ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¡Œã«è¡¨ç¤º
 set showcmd
-" ƒ^ƒCƒgƒ‹‚ğ•\¦
+" ã‚¿ã‚¤ãƒˆãƒ«ã‚’è¡¨ç¤º
 set title
-" ‰æ–Ê‚ğ•’n‚É”’‚É‚·‚é (Ÿs‚Ìæ“ª‚Ì " ‚ğíœ‚·‚ê‚Î—LŒø‚É‚È‚é)
-"colorscheme evening " (Windows—pgvimg—p‚Ígvimrc‚ğ•ÒW‚·‚é‚±‚Æ)
+" ç”»é¢ã‚’é»’åœ°ã«ç™½ã«ã™ã‚‹ (æ¬¡è¡Œã®å…ˆé ­ã® " ã‚’å‰Šé™¤ã™ã‚Œã°æœ‰åŠ¹ã«ãªã‚‹)
+"colorscheme evening " (Windowsç”¨gvimä½¿ç”¨æ™‚ã¯gvimrcã‚’ç·¨é›†ã™ã‚‹ã“ã¨)
 
 "---------------------------------------------------------------------------
-" ƒtƒ@ƒCƒ‹‘€ì‚ÉŠÖ‚·‚éİ’è:
+" ãƒ•ã‚¡ã‚¤ãƒ«æ“ä½œã«é–¢ã™ã‚‹è¨­å®š:
 "
-" ƒoƒbƒNƒAƒbƒvƒtƒ@ƒCƒ‹‚ğì¬‚µ‚È‚¢ (Ÿs‚Ìæ“ª‚Ì " ‚ğíœ‚·‚ê‚Î—LŒø‚É‚È‚é)
+" ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆã—ãªã„ (æ¬¡è¡Œã®å…ˆé ­ã® " ã‚’å‰Šé™¤ã™ã‚Œã°æœ‰åŠ¹ã«ãªã‚‹)
 "set nobackup
 
 
 "---------------------------------------------------------------------------
-" ƒtƒ@ƒCƒ‹–¼‚É‘å•¶š¬•¶š‚Ì‹æ•Ê‚ª‚È‚¢ƒVƒXƒeƒ€—p‚Ìİ’è:
-"   (—á: DOS/Windows/MacOS)
+" ãƒ•ã‚¡ã‚¤ãƒ«åã«å¤§æ–‡å­—å°æ–‡å­—ã®åŒºåˆ¥ãŒãªã„ã‚·ã‚¹ãƒ†ãƒ ç”¨ã®è¨­å®š:
+"   (ä¾‹: DOS/Windows/MacOS)
 "
 if filereadable($VIM . '/vimrc') && filereadable($VIM . '/ViMrC')
-  " tagsƒtƒ@ƒCƒ‹‚Ìd•¡–h~
+  " tagsãƒ•ã‚¡ã‚¤ãƒ«ã®é‡è¤‡é˜²æ­¢
   set tags=./tags,tags
 endif
 
 "---------------------------------------------------------------------------
-" ƒRƒ“ƒ\[ƒ‹‚Å‚ÌƒJƒ‰[•\¦‚Ì‚½‚ß‚Ìİ’è(b’è“I‚ÉUNIXê—p)
-if has('unix')
-  let uname = system('uname')
-  if uname =~? "linux"
+" ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã§ã®ã‚«ãƒ©ãƒ¼è¡¨ç¤ºã®ãŸã‚ã®è¨­å®š(æš«å®šçš„ã«UNIXå°‚ç”¨)
+if has('unix') && !has('gui_running')
+  let s:uname = system('uname')
+  if s:uname =~? "linux"
     set term=builtin_linux
-  elseif uname =~? "freebsd"
+  elseif s:uname =~? "freebsd"
     set term=builtin_cons25
-  elseif uname =~? "Darwin"
+  elseif s:uname =~? "Darwin"
     set term=beos-ansi
   else
     set term=builtin_xterm
   endif
-  unlet uname
+  unlet s:uname
 endif
 
 "---------------------------------------------------------------------------
-" ƒRƒ“ƒ\[ƒ‹”Å‚ÅŠÂ‹«•Ï”$DISPLAY‚ªİ’è‚³‚ê‚Ä‚¢‚é‚Æ‹N“®‚ª’x‚­‚È‚éŒ‚Ö‘Î‰
+" ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ç‰ˆã§ç’°å¢ƒå¤‰æ•°$DISPLAYãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹ã¨èµ·å‹•ãŒé…ããªã‚‹ä»¶ã¸å¯¾å¿œ
 if !has('gui_running') && has('xterm_clipboard')
   set clipboard=exclude:cons\\\|linux\\\|cygwin\\\|rxvt\\\|screen
 endif
 
 "---------------------------------------------------------------------------
-" ƒvƒ‰ƒbƒgƒz[ƒ€ˆË‘¶‚Ì“Á•Ê‚Èİ’è
+" ãƒ—ãƒ©ãƒƒãƒˆãƒ›ãƒ¼ãƒ ä¾å­˜ã®ç‰¹åˆ¥ãªè¨­å®š
 
-" Win‚Å‚ÍPATH‚É$VIM‚ªŠÜ‚Ü‚ê‚Ä‚¢‚È‚¢‚Æ‚«‚Éexe‚ğŒ©‚Â‚¯o‚¹‚È‚¢‚Ì‚ÅC³
+" Winã§ã¯PATHã«$VIMãŒå«ã¾ã‚Œã¦ã„ãªã„ã¨ãã«exeã‚’è¦‹ã¤ã‘å‡ºã›ãªã„ã®ã§ä¿®æ­£
 if has('win32') && $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
   let $PATH = $VIM . ';' . $PATH
 endif
 
 if has('mac')
-  " Mac‚Å‚ÍƒfƒtƒHƒ‹ƒg‚Ì'iskeyword'‚ªcp932‚É‘Î‰‚µ‚«‚ê‚Ä‚¢‚È‚¢‚Ì‚ÅC³
+  " Macã§ã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®'iskeyword'ãŒcp932ã«å¯¾å¿œã—ãã‚Œã¦ã„ãªã„ã®ã§ä¿®æ­£
   set iskeyword=@,48-57,_,128-167,224-235
 endif
 
-" Copyright (C) 2003 KaoriYa/MURAOKA Taro
+"---------------------------------------------------------------------------
+" KaoriYaã§ãƒãƒ³ãƒ‰ãƒ«ã—ã¦ã„ã‚‹ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®ãŸã‚ã®è¨­å®š
 
-""""" my config start """"
-set clipboard=unnamed 
-" ƒL[ƒoƒCƒ“ƒh•ÏX
+" autofmt: æ—¥æœ¬èªæ–‡ç« ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ(æŠ˜ã‚Šè¿”ã—)ãƒ—ãƒ©ã‚°ã‚¤ãƒ³.
+set formatexpr=autofmt#japanese#formatexpr()
 
-" ŒŸõ‚ğ emacs ‚¿‚Á‚­‚É
-"map <C-s> /
-" ƒrƒWƒ…ƒAƒ‹ƒ‚[ƒh‚Ì‚Æ‚«‚à
-"vnoremap <C-S> y:%s/<C-R>"//g<Left><Left>
+" vimdoc-ja: æ—¥æœ¬èªãƒ˜ãƒ«ãƒ—ã‚’ç„¡åŠ¹åŒ–ã™ã‚‹.
+if kaoriya#switch#enabled('disable-vimdoc-ja')
+  let &rtp = join(filter(split(&rtp, ','), 'v:val !~ "vimdoc-ja"'), ',')
+endif
 
-" ƒCƒ“ƒT[ƒgƒ‚[ƒh‚ğ emacs ‚Á‚Û‚­
-" ©
-inoremap <C-B> <left>
-" ¨
-inoremap <C-F> <right>
-" ª
-inoremap <C-P> <up>
-" «
-inoremap <C-N> <down>
-" s“ª
-inoremap <C-A> <Home>
-" s––
-inoremap <C-E> <End>
-" ˆê•¶šíœ
-inoremap <C-D> <DEL>
+" Copyright (C) 2009-2012 KaoriYa/MURAOKA Taro
 
-" ƒJ[ƒ\ƒ‹s‚ğ’†‰›‚É•\¦
-inoremap <C-L> <C-O>zz
+"mswin.vimã‚’èª­ã¿è¾¼ã‚€
+source $VIMRUNTIME/mswin.vim
+behave mswin
 
-" ‡•ûŒüƒ[ƒh•âŠ®
-inoremap <C-J> <C-N>
-" ‹t•ûŒüƒ[ƒh•âŠ®
-inoremap <C-K> <C-P>
-
-" ƒJ[ƒ\ƒ‹‚Ì‰º‚Ìs‚Ì“¯‚¶ˆÊ’u‚Ì•¶š‚ğ‘}“ü
-inoremap <C-U> <C-E>
-
-" ƒJ[ƒ\ƒ‹‚Ì‰º‚Ìs‚Ì“¯‚¶ˆÊ’u‚Ì•¶š‚ğ‘}“ü
-inoremap <Down> <C-e>
-" ƒJ[ƒ\ƒ‹‚Ìã‚Ìs‚Ì“¯‚¶ˆÊ’u‚Ì•¶š‚ğ‘}“ü
-inoremap <UP> <C-y>
-
-" ‡•ûŒüƒ[ƒh•âŠ®(Tab)
-"inoremap <C-I> <C-N>
-" ‹t•ûŒüƒ[ƒh•âŠ®
-"inoremap <S-Tab> <C-P>
-" s––‚Ü‚Åíœ
-"inoremap <C-K> <C-O>D
-" ƒy[ƒXƒg
-"inoremap <C-Y> <C-O>p
-
-" ƒRƒ}ƒ“ƒhƒ‚[ƒh‚ğ emacs ‚Á‚Û‚­
-" s“ª‚ÖˆÚ“®
-cnoremap <C-a> <Home>
-" ˆê•¶š–ß‚é
-cnoremap <C-b> <Left>
-" ƒJ[ƒ\ƒ‹‚Ì‰º‚Ì•¶š‚ğíœ
-cnoremap <C-d> <Del>
-" s––‚ÖˆÚ“®
-cnoremap <C-e> <End>
-" ˆê•¶ši‚Ş
-cnoremap <C-f> <Right>
-" ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“—š—ğ‚ğˆê‚Âi‚Ş
-cnoremap <C-n> <Down>
-" ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“—š—ğ‚ğˆê‚Â–ß‚é
-cnoremap <C-p> <Up>
-" ‘O‚Ì’PŒê‚ÖˆÚ“®
-cnoremap <Esc><C-b> <S-Left>
-" Ÿ‚Ì’PŒê‚ÖˆÚ“®
-cnoremap <Esc><C-f> <S-Right>
-"" ’¼‘O‚Ìƒ„ƒ“ƒN‚ğ‚ ‚ê•—‚Éƒy[ƒXƒg
-"cnoremap <C-y> <C-r>"
-" ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“—š—ğ‚ğ•\¦ 
-cnoremap <C-y>	<C-f>
-" ƒRƒ}ƒ“ƒh•âŠ®
-"cnoremap <Tab>	      <C-L>
-" ƒtƒ@ƒCƒ‹ƒpƒX‚Ìƒy[ƒXƒg(KoRoN‚³‚ñ‚ÌŒf¦”Â‚æ‚è”qØ)
-cnoremap <C-x> <C-r>=expand('%:p:h')<CR>/
-"" ƒJ[ƒ\ƒ‹‚Ìã‚Ì’PŒê‚ğƒy[ƒXƒg
-"cnoremap <C-@> <C-r><C-w>
-"" ƒtƒ@ƒCƒ‹–¼‚ğƒy[ƒXƒg(‚ ‚Ü‚è‚Â‚©‚í‚È‚¢‚¯‚Ç)
-"cnoremap <C-o> <C-r>%
-" ^K ‚Æ•\¦‚³‚ê‚é‚Ì‚ª×–‚‚È‚Ì‚Å Del ‚É•ÏX
-cnoremap <C-k> <Del>
-" ^G ‚Æ•\¦‚³‚ê‚é‚Ì‚ª×–‚‚È‚Ì‚Å ESC ‚É•ÏX
-cnoremap <C-g> <ESC>
-"" ‚È‚º‚© <C-h> ‚ª Del ‚É‚È‚Á‚Ä‚¢‚é‚Ì‚Å BS ‚É•ÏX
-"cnoremap <C-h> <BS>
-
-" Ü‚è•Ô‚µ•\¦s‚ğ‰æ–Ê‚Ìs’PˆÊ‚ÅˆÚ“®
-"nnoremap j gj
-"nnoremap k gk
-
-" C-L ‚ÅƒnƒCƒ‰ƒCƒg‚ğÁ‚·
-nnoremap <C-L>	:noh<CR>:redraw<CR>
-
-nnoremap Y	y$
-
-" ‚±‚±‚©‚çİ’è config
-
-" ƒoƒbƒNƒAƒbƒvƒtƒ@ƒCƒ‹‚ğˆê‰ÓŠ‚Éì¬
-"set backupdir=>c:\home\sugi\tmp
 set     backupdir=>$TMP
-" ƒXƒƒbƒvƒtƒ@ƒCƒ‹‚ğˆê‰ÓŠ‚Éì¬
-"set directory=>c:\home\sugi\tmp
 set     directory=>$TMP
 
-" Chalice ‚Ìİ’è
-set runtimepath+=$VIM/chalice
+" C-L ã§ãƒã‚¤ãƒ©ã‚¤ãƒˆã‚’æ¶ˆã™
+nnoremap <C-L>	:noh<CR>:redraw<CR>
 
-" ƒNƒŠƒbƒvƒ{[ƒh‚Æ–¼‘O‚È‚µƒŒƒWƒXƒ^‚ğ“¯Šú
-"set clipboard=unnamed 
+" mswin.vim ã‚’ä¸€éƒ¨å…ƒã«æˆ»ã™
+noremap <C-A> <C-A>
+inoremap <C-A> <C-A>
+cnoremap <C-A> <C-A>
+onoremap <C-A> <C-A>
+snoremap <C-A> <C-A>
+xnoremap <C-A> <C-A>
 
-
-" ƒCƒ“ƒNƒŠƒƒ“ƒ^ƒ‹ƒT[ƒ`‚ğg‚¤
-set incsearch
-
-set listchars=tab:\ \ 
-set list
-
-" Šm”Fƒ_ƒCƒAƒƒO‚ğo‚·
-set confirm
-
-" auto date ‚ÌƒtƒH[ƒ}ƒbƒg
-"let autodate_format = '%d %3m. %Y %H:%M'
-let autodate_format = '%d %3m. %Y'
-
-"‰¹‚ğÁ‚µ‚ÄA‰æ–Êƒtƒ‰ƒbƒVƒ…
-set visualbell
-
-" ƒfƒtƒHƒ‹ƒgƒ^ƒu•‚Ìİ’è
 set tabstop=4
-set sw=4
+set autoindent
+set expandtab
+set shiftwidth=4
 
-" ‰B‚µƒoƒbƒtƒ@‚ğg‚¤
-"set hidden
-
-" fold ƒ‚[ƒhİ’è
-set foldmethod=marker
-
-" ~(ƒ`ƒ‹ƒ_)‚ğ operator •—‚É
-"set tildeop
-
-" HTML ‚Åƒ^ƒO‚ğ‘å•¶š‚É‚·‚éƒRƒ}ƒ“ƒh
-command! -nargs=? -range=% ToUpperHtml :<line1>,<line2>substitute/<\l\+\|\/\l\+>/\U&/g<args>
-
-command! -nargs=? Tab :set listchars=tab:>-,extends:<,trail:-,eol:<
-command! -nargs=? NoTab :set listchars=tab:
-
-set keymap=tutcodes
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
