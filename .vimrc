@@ -60,3 +60,13 @@ let g:quickrun_config.php = {
 \ 'exec' : '%c %o %a %s',
 \ }
 
+source ~/.vim/php-doc.vim
+
+let g:pdv_cfg_Author = "yosugi <your@email.address.com>"
+let g:pdv_cfg_Copyright = ""
+let g:pdv_cfg_License = "MIT Lisence"
+
+inoremap <C-@> <ESC>:call PhpDocSingle()<CR>i
+nnoremap <C-@> :call PhpDocSingle()<CR>
+vnoremap <C-@> :call PhpDocRange()<CR>
+
