@@ -1,0 +1,19 @@
+[user]
+	name = yosugi
+	email = your@email.address.com
+[merge]
+        tool = vimdiff
+[diff]
+        tool = vimdiff
+[difftool]
+        prompt = false
+[alias]
+        co   = checkout
+        st   = status
+        br   = branch
+        pr   = pull --rebase
+        ru   = remote update
+        mnff = merge --no-ff
+        hist = log --oneline --decorate --graph
+[help]
+        autocorrect = 1
