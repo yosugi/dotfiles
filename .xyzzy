@@ -1,0 +1,391 @@
+;; Last Change: 09-Mar-2013.
+; written by yosugi
+
+;; M-x shell で動かすシェル
+(setq *eshell* "bash -i")
+
+;; 1 行スクロール
+(global-set-key '#\M-j #'(lambda () (interactive) (scroll-window 1)))
+(global-set-key '#\M-k #'(lambda () (interactive) (scroll-window -1)))
+
+;; この 2 行を設定すると常にポップアップで補完
+;(setq *popup-completion-list-default* :always)
+;(setq *minibuffer-popup-completion-list* :never)
+
+;; 日付、時刻の挿入
+(defun insert-my-date()
+  (interactive)
+  ; (insert (format-date-string "%y年%#m月%#d日(%v)")))
+  (insert (format-date-string "%#d %#b. %#Y")))
+(global-set-key '(#\C-c #\C-t) 'insert-my-date)
+
+; いつもここから
+(set-default-directory "c:/home/yosugi/")
+
+; バックアップファイルを一箇所に
+(require "backup")
+(setq *backup-directory* "C:/home/yosugi/tmp/backup_xyzzy/")
+(setq *hierarchic-backup-directory* t)
+
+; カレントバッファをインデント
+(defun indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max))
+  (message "indent buffer"))
+;(global-set-key #\C-F8 'indent-buffer)
+
+;;; howm の設定 ;;;
+;(require "howm-wrap")
+;; `howm-init.l' をコピーしてない場合、以下を有効に。
+;; 日本語メニューを使う。
+;(setq elisp-lib::howm-menu-lang 'elisp-lib::ja)
+(load (merge-pathnames "site-lisp/howm-wrap.lc" (si:system-root)))
+(load (merge-pathnames "site-lisp/elisp-lib.lc" (si:system-root)))
+
+;; kamail の設定
+(autoload 'kamail "kamail/kamail" t)
+
+
+;;;;; isearch-deco の設定 ;;;;;
+;; isearch の検索時に色をつける
+;; http://www.afis.to/~start/xyzzy/mode/isearch.html
+(load-library "isearch")
+(load-library "isearch-deco")
+;装飾や色など
+(setq *coloring-pattern-hilight-match* '(:foreground 0 :background 3))
+;カーソル(キャレット)の側で情報を表示させるか *isearch-deco-ignore* が nil の時作用
+(setq *coloring-popup* nil)
+;強調表示する方向を考えるか
+(setq *coloring-consider-direction* t)
+
+;;;;; vi-mode の設定 ;;;;;
+;http://tiki.is.os-omicron.org/tiki.cgi?c=v&p=xyzzy%2Fvi%A5%E2%A1%BC%A5%C9
+(load-library "vi-mode")
+;(add-hook '*find-file-hooks* 'vi-mode)
+
+;;;;; rss-mode の設定 ;;;;;
+(require "rss/main")
+; www-modeで開く
+(require "rss/open-www")
+; 出したり引っ込めたりするキーバインド設定
+;(global-set-key #\S-F3 'rss-toggle)
+
+;;; ruby-mode の設定;;;
+;; http://homepage3.nifty.com/Yukimi_Sake/ruby/xyzzy/readme.txt
+;(load-library "Gates");Gates が好きならファイルの先頭に
+(load-library "ruby-mode")
+(push '("\\.rb$" . ruby-mode) *auto-mode-alist*)
+; インデント量を変える。nilの時はタブを挿入
+(setq *ruby-indent-column* nil)
+
+;;; weather-forecast の設定 ;;;
+;;http://xyzzy.s53.xrea.com/wiki/index.php?cmd=read&page=tips%2F%C5%B7%B5%A4%CD%BD%CA%F3%BC%E8%C6%C0
+(autoload 'weather-forecast "weather-forecast" t)
+(setq *weather-forecast-prefecture* "東京")
+
+;;; switch-bar の設定 ;;;
+;; http://www1.odn.ne.jp/ymtz/switch-bar.html
+(require "switch-bar")
+;; switch-barでトグルする機能の一覧
+(setq *switch-function* nil)
+;; 最初からバーを非表示にするか？
+(setq *switch-bar-initial* t)
+
+;;; c-mode の設定 ;;;
+;; http://www.jsdlab.co.jp/~kei/xyzzy/xyzzy2.html#c_indent
+(setq c-indent-level 4)
+(setq c-continued-statement-offset 4)
+(setq c-argdecl-indent 0)
+(setq c-brace-offset 0)
+(setq c-brace-imaginary-offset 0)
+(setq c-label-offset 0)
+(setq *c-tab-always-indent* nil)
+(setq *c-indent-tabs-mode* t)
+(define-key ed::*c-mode-map* #\tab 'self-insert-command)
+(define-key ed::*c-mode-map* #\C-h 'delete-backward-char-or-selection)
+(set-syntax-word ed::*c-mode-syntax-table* #\_)	; '_' は単語構成子
+
+;;; perl-mode の設定 ;;;
+(add-hook 'ed::*perl-mode-hook*
+		  #'(lambda ()
+			  (set-syntax-word ed::*perl-mode-syntax-table* #\_)	; '_' は単語構成子
+			  (define-key ed::*perl-mode-map* #\C-h 'delete-backward-char-or-selection)))
+
+;;; lisp-mode の設定 ;;;
+; '-' と '*' は単語構成子
+(set-syntax-word  ed::*lisp-mode-syntax-table*  #\-)
+(set-syntax-word  ed::*lisp-mode-syntax-table*  #\*)
+
+;;; ndmacro の設定 ;;;
+;; http://www.geocities.co.jp/SiliconValley-PaloAlto/5042/xyzzy/#ndmacro
+(defconstant *ndmacro-key* #\C-\,)
+(global-set-key *ndmacro-key* 'ndmacro-exec)
+(autoload 'ndmacro-exec "ndmacro" t)
+
+;;; info の設定 ;;;
+;; http://www1.neweb.ne.jp/wa/sinj/xyzzy/
+(load-library "info")
+
+;;; help の設定 ;;;
+;; http://hie.s64.xrea.com/xyzzy/note2/wiki.cgi?page=Edit
+(defun help ()
+  (interactive)
+  (message "Help - ")
+  (let ((b_ime (get-ime-mode)) cmd)
+	(toggle-ime nil)
+	(setf cmd
+		  (case (read-char)
+			((#\a) #'apropos)
+			((#\b) #'describe-bindings)
+			((#\c) #'command-apropos)
+			((#\f) #'describe-function)
+			((#\i) #'info)
+			((#\k) #'describe-key)
+			((#\v) #'describe-variable)))
+	(clear-message)
+	(when cmd
+	  (call-interactively cmd))
+	(toggle-ime b_ime)))
+
+(define-key esc-map #\? 'help)
+
+;;; my-kill-line の設定 ;;;
+;; カーソルが行頭にあると行ごと削除
+;; http://hie.s64.xrea.com/xyzzy/note/edit.html#my-kill-line
+(defun my-kill-line (&optional arg)
+  (interactive "*p")
+  (cond ((bolp)
+		 (let ((point (point))
+			   (lines (cond ((or (null arg)
+								 (<= arg 1))
+							 0)
+							(t
+							 (- arg 1)))))
+		   (kill-region point
+						(progn
+						  (forward-line lines)
+						  (goto-eol)
+						  (forward-char)
+						  (point)))))
+		(t
+		 (kill-line arg))))
+(define-key *global-keymap* #\C-k 'my-kill-line)
+
+;;; lleee の設定 ;;;
+(load-library "lleee")
+(setq *lleee-file-name* "~/howm/kanji.txt")
+(setq *lleee-line-num* 3)
+(setq *lleee-char-num* 10)
+(setq *lleee-default-tag* "ALL")
+
+; 行頭で C-a を押したら最初に空白文字以外が出るところまでジャンプ
+(global-set-key #\C-a
+				#'(lambda ()
+					(interactive)
+					; 行頭にカーソルがあったら空白文字をとばす
+					(if (bolp)
+						(skip-chars-forward " \t")
+					  ; カーソルが行頭になければ行頭に移動
+					  (goto-bol))))
+
+; craftlaunch を呼ぶ
+(global-set-key #\C-:
+				#'(lambda ()
+					(interactive)
+					(call-process
+					 (format nil
+							 "c:/home/yosugi/softs/clnch/clnch.exe /wr /x50 /y50 /w128 /c2 ;~A"
+							 (get-buffer-file-name)
+							 ))))
+
+;; vi 風タグジャンプ
+(global-set-key #\C-] 'jump-tag)
+(global-set-key #\C-o 'back-tag-jump)
+
+;; 与えられた文字に囲まれた文字列を抽出する
+(defun get-between-string (search-char)
+  (save-excursion
+	(let* ((search-char (format nil "~A" search-char))
+		   (old-point (point))
+		   from
+		   to)
+	  (scan-buffer search-char :reverse t :tail t)
+	  (setq from (point))
+	  (scan-buffer search-char)
+	  (setq to (point))
+	  (copy-region-as-kill from to)
+	  )))
+
+;; "～" の中の文字
+(global-set-key '(#\C-c #\w #\") #'(lambda ()
+									 (interactive)
+									 (get-between-string #\")))
+
+;; '～' の中の文字
+(global-set-key '(#\C-c #\w #\') #'(lambda ()
+									 (interactive)
+									 (get-between-string #\')))
+
+(load-library "hnf-mode")
+
+;; view-minor-mode の設定
+;(require "minorviewmode")
+;(add-hook '*find-file-hooks* 'ed:view-minor-mode)
+
+
+;; xdoc2txt
+;; http://miyamuko.s56.xrea.com/
+;(require "xdoc2txt")
+;
+;;; 80 文字で折り返す。
+;(setf *xdoc2txt-fold-width* 80)
+;
+;;; Word ファイルだけウィンドウ幅で折り返し
+;(setf *xdoc2txt-fold-width* #'(lambda (filename)
+;								(if (string-matchp "\\.doc$" filename)
+;									t
+;                                  nil)))
+;
+;(setf *xdoc2txt-command* "~\softs\xdox2txtxdoc2txt.exe -c")
+;(setf *xdoc2txt-command* "C:/home/yosugi/softs/xdoc2txt/xdoc2txt.exe -c")
+
+;; keep-window-line
+;; http://ohkubo.s53.xrea.com/xyzzy/index.html#keep-window-line
+;(require "keep-window-line")
+
+;; csv-mode の設定
+;; http://ohkubo.s53.xrea.com/xyzzy/index.html#csv-mode
+(export '(ed::csv-mode  ed::tsv-mode) "ed")
+(autoload 'csv-mode "csv-mode" t)
+(autoload 'tsv-mode "csv-mode" t)
+(pushnew '("\\.csv$" . csv-mode) *auto-mode-alist* :test 'equal)
+(pushnew '("\\.tsv$" . tsv-mode) *auto-mode-alist* :test 'equal)
+
+;; grep-mode の設定
+; http://nazoking.s31.xrea.com:8080/k/grep-mode.l
+(autoload 'ed::grep-mode "grep-mode" t)
+(add-hook 'ed::*grep-hook* 'ed::grep-mode)
+(add-hook 'ed::*grepd-hook* 'ed::grep-mode)
+
+;; コマンドラインからディレクトリを開こうとするとgrepになってほしい。
+; http://hie.s64.xrea.com/xyzzy/note/search.html#command-line-grep
+(add-hook 'ed::*process-command-line-hook*
+		  #'(lambda (arg) (interactive)
+			  (when (file-directory-p arg)
+				(require "grepd")
+				(let ((ed::*grep-directory-name-hook*
+					   #'(lambda () arg)))
+				  (declare (special ed::*grep-directory-name-hook*))
+				  (setq arg (map-backslash-to-slash arg))
+				  (add-history arg 'ed::*grep-directory-history*)
+				  (ed::grep-dialog)))))
+
+;; カレントワードを検索
+; http://hie.s64.xrea.com/xyzzy/note/search.html#current-word-search-forward
+(defun current-word-search-forward (&optional bw)
+  (interactive)
+  (let (str)
+	(if (pre-selection-p)
+		(selection-start-end (start end)
+		  (setq str (buffer-substring start end))
+		  (if bw (when (> start end) (goto-char end))
+			(when (< start end) (goto-char end))))
+	  (progn
+		(setq str (buffer-substring
+				   (progn (skip-syntax-spec-backward "w_")(point))
+				   (progn (skip-syntax-spec-forward "w_")(point))))
+		(when bw (skip-syntax-spec-backward "w_"))))
+	(unless (> (length str) 0)
+	  (return-from current-word-search-forward nil))
+	(forward-char -1)
+	(ed::search-command str bw nil t)))
+
+(defun current-word-search-backward ()
+  (interactive)
+  (current-word-search-forward t))
+
+(global-set-key #\C-M-s 'current-word-search-forward)
+(global-set-key #\C-M-r 'current-word-search-backward)
+
+;; diff-detail の設定
+; http://ohkubo.s53.xrea.com/xyzzy/index.html
+;(require "diff-detail")
+
+;; diff-buffer の設定
+; http://www3.ocn.ne.jp/~han/xyzzy/
+;(require "diff-buffer")
+
+
+;連続して dabbrev-popup を実行する。
+;; http://nazoking.s31.xrea.com:8080/k/dabbrev-popup-loop.l
+(defun dabbrev-popup-loop ()
+  "連続して dabbrev-popup を実行する。"
+  (interactive) ; おまじない
+  (let (c) ; 変数 c を使います
+	(loop  ; 永久ループ
+	  (dabbrev-popup)  ; dabbrev-popup を実行
+	  (setq c (read-char ed:*keyboard*)) ;キーボードから一文字読み取る
+	  (unless (and (eq (lookup-key-command c) 'self-insert-command)
+				   ; もし、そのキーに割り当てられたコマンドが 'self-insert-command で
+				   (or (syntax-word-p c)       ; word 文字か
+					   (syntax-symbol-p c)))   ; symbol 文字でなかったら
+		(unread-char c) ; キーボードを読んでないことにして
+		(return)) ;dabbrev-popup-loop を終了
+	  ;それ以外の場合は
+	  (insert c) ; c をインサートして
+	  (refresh-screen)))) ; 画面を再描写してループに戻る
+
+;; svn-mode の設定
+;; http://www5d.biglobe.ne.jp/~lostland/xyzzy/
+
+(require "svn/svn")
+(setq *svn-use-completion* t)
+(setq *svn-src-dst-files-history* nil)
+
+(require "xml-parser-modoki")
+
+;; tdiary-mode の設定
+;; http://www20.big.or.jp/~rin_ne/soft/tdiary-mode/
+;(in-package "tdiary")
+;(setf tdiary::*tdiary-diary-list*
+;	  '(("ko-hai day's" "http://tai-hai.net/diary/")))
+;(in-package "editor")
+
+;; nippo-mode
+(load-library "nippo")
+(setq *nippo-smtp-server* "sea.mail.plala.or.jp")
+
+(load-library "vim/vim")
+
+(defun eval-script (command)
+  "カレントバッファのスクリプトを評価する"
+  (let ((tempfile (make-temp-file-name)))
+	(save-excursion
+	  (write-region (point-min)
+					(point-max)
+					tempfile
+					nil
+					*encoding-binary*))
+
+	(unwind-protect
+		(progn
+		  (message "executing script...")
+		  (with-output-to-temp-buffer ("*result*") t
+			(execute-shell-command
+			 (concat (map-slash-to-backslash command) " " tempfile)
+			 nil
+			 (selected-buffer))))
+	  (message "executing script... done.")
+	  (delete-file tempfile))))
+
+(defun eval-ruby ()
+  "ruby スクリプトを評価する"
+  (interactive)
+  (eval-script "ruby.exe"))
+(defun eval-perl ()
+  "perl スクリプトを評価する"
+  (interactive)
+  (eval-script "perl.exe"))
+
+(require "profile")
+
