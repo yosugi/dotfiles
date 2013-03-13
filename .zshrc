@@ -1,4 +1,4 @@
-PROMPT='[%n@%~]$ '
+PROMPT='[%n@%c]$ '
 #LANG=C
 EDITOR=vim
 # screen で最後に打ったコマンドをタイトルに表示
@@ -61,9 +61,11 @@ function rprompt-git-current-branch {
                 color=${fg[red]}
         fi
 
-        echo "%{$color%}$name%{$reset_color%}"
+        echo "[%{$color%}$name%{$reset_color%}]"
 }
 
 setopt prompt_subst
 
-RPROMPT='[`rprompt-git-current-branch`]'
+RPROMPT='`rprompt-git-current-branch`'
+
+zstyle ':completion:*:*:git:*' script ~/.git-completion.sh
