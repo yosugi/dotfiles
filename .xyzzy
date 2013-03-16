@@ -1,8 +1,11 @@
-;; Last Change: 09-Mar-2013.
+;; Last Change: 15-Mar-2013.
 ; written by yosugi
 
 ;; M-x shell で動かすシェル
 (setq *eshell* "bash -i")
+
+;; 次ページは半分
+(setq *page-scroll-half-window* t)
 
 ;; 1 行スクロール
 (global-set-key '#\M-j #'(lambda () (interactive) (scroll-window 1)))
@@ -33,6 +36,12 @@
   (indent-region (point-min) (point-max))
   (message "indent buffer"))
 ;(global-set-key #\C-F8 'indent-buffer)
+
+; ctrl tab で他のフレームへ
+; http://www.uranus.dti.ne.jp/~shiro-/soft/xyzzy/keybind.html
+; http://xyzzy.s53.xrea.com/wiki/index.php?QuickTour%2Fext%2Fkey
+(global-set-key #\C-F24 'next-pseudo-frame)
+(set-extended-key-translate-table exkey-C-tab #\C-F24)
 
 ;;; howm の設定 ;;;
 ;(require "howm-wrap")
@@ -388,4 +397,10 @@
   (eval-script "perl.exe"))
 
 (require "profile")
+
+(setq *lisp-indent-tabs-mode* nil) 
+
+(load-library "ltsv")
+(load-library "xig/xig")
+(setq *xig-git-path* "C:/Program Files (x86)/Git/bin/git.exe")
 
