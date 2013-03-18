@@ -1,4 +1,4 @@
-;; Last Change: 15-Mar-2013.
+;; Last Change: 17-Mar-2013.
 ; written by yosugi
 
 ;; M-x shell ‚Å“®‚©‚·ƒVƒFƒ‹
@@ -396,11 +396,20 @@
   (interactive)
   (eval-script "perl.exe"))
 
+(load-library "d-mode")
+(setq *default-load-path* '("e:/program files/xyzzy/site-lisp/junk")) 
+
+;; xml-http-request
+(require "xml-http-request")
+
+(require "ajaxyzzy")
+(setq *ajaxyzzy-url* "http://yo-sugi.sakura.ne.jp/test/ajaxyzzy.rb")
+
 (require "profile")
 
 (setq *lisp-indent-tabs-mode* nil) 
 
 (load-library "ltsv")
 (load-library "xig/xig")
-(setq *xig-git-path* "C:/Program Files (x86)/Git/bin/git.exe")
+(setq xig::*xig-git-path* "C:/Program Files (x86)/Git/bin/git.exe")
 
