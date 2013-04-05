@@ -27,6 +27,14 @@ set foldmethod=marker
 
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
+" タブの切り替えを
+" CTRL+Tab SHIFT+Tabで行うように
+"
+if v:version >= 700
+  nnoremap <C-Tab>   gt
+  nnoremap <C-S-Tab> gT
+endif
+
 " qfixappにruntimepathを通す(パスは環境に合わせてください)
 set runtimepath+=c:/home/yosugi/softs/gvim/qfixapp
 
