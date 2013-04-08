@@ -40,6 +40,7 @@
 (define-key filer-keymap #\g 'filer-search-name)
 (define-key filer-keymap #\i 'filer-delete-mask)
 (define-key filer-keymap #\0 'filer-jump-directory)
+(define-key filer-keymap #\C-l 'filer-jump-directory)
 (define-key filer-keymap #\C-k 'filer-create-directory)
 ;(define-key filer-keymap #\- 'filer-create-file)
 (define-key filer-keymap #\; 'filer-change-drive)
