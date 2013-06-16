@@ -10,6 +10,10 @@ set hlsearch
 " C-L でハイライトを消す
 nnoremap <C-L>	:noh<CR>:redraw<CR>
 
+" insertモードから抜ける
+inoremap <silent> jj <ESC>
+inoremap <silent> <C-j> j
+
 set tabstop=4
 set autoindent
 set expandtab
