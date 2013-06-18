@@ -5,10 +5,21 @@ set visualbell
 set laststatus=2
 
 set incsearch
+set ignorecase
 set hlsearch
+set showcmd
+
+syntax enable
 
 " C-L でハイライトを消す
-nnoremap <C-L>	:noh<CR>:redraw<CR>
+nnoremap <silent><C-L> :noh<CR>:redraw<CR>
+
+" Use CTRL-Q to do what CTRL-V used to do
+nnoremap <C-Q> <C-V>
+
+nnoremap ;w :<C-u>w<CR>
+nnoremap ;q :<C-u>q<CR>
+
 
 " insertモードから抜ける
 inoremap <silent> jj <ESC>
@@ -18,6 +29,12 @@ set tabstop=4
 set autoindent
 set expandtab
 set shiftwidth=4
+
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+highlight StatusLine term=bold cterm=bold ctermfg=black ctermbg=white
+highlight StatusLineNC term=bold cterm=bold ctermfg=black ctermbg=white
+highlight TabLineSel term=bold cterm=bold ctermfg=black ctermbg=white
+highlight TabLineFill term=bold cterm=bold ctermfg=black ctermbg=white
 
 "mswin.vimを読み込む
 source $VIMRUNTIME/mswin.vim
@@ -30,6 +47,62 @@ cnoremap <C-A> <C-A>
 onoremap <C-A> <C-A>
 snoremap <C-A> <C-A>
 xnoremap <C-A> <C-A>
+
+"NeoBundle
+" https://github.com/Shougo/neobundle.vim
+" Install
+" $ mkdir -p ~/.vim/bundle
+" $ export GIT_SSL_NO_VERIFY=true
+" $ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+" :NeoBundleInstall でプラグインインストール :NeoBundleInstall! で更新
+filetype plugin indent off " required!
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    call neobundle#rc(expand('~/.vim/bundle/'))
+endif
+
+" gitを使ったプラグインマネージャ
+NeoBundle 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'gregsexton/gitv'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'docteurklein/php-getter-setter.vim'
+NeoBundle 'bthemad/php-doc.vim'
+"リポジトリを持たないプラグイン
+"NeoBundle 'im_control', {'type' : 'nosync', 'base' : '~/.vim/bundle'}
+
+filetype plugin indent on
+
+" unite.vim の設定
+" バッファ一覧
+nnoremap <silent> ;ub :<C-u>Unite buffer<CR>
+" ファイル一覧
+nnoremap <silent> ;uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" レジスタ一覧
+nnoremap <silent> ;ur :<C-u>Unite -buffer-name=register register<CR>
+" 最近使用したファイル一覧
+nnoremap <silent> ;um :<C-u>Unite file_mru<CR>
+" 全部乗せ
+nnoremap <silent> ;ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+
+"ctrlp の設定
+set wildignore+=*/cache/*,
+let g:ctrlp_map = ';p'
+let g:ctrlp_by_filename = 0
+let g:ctrlp_regexp = 1
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("t")': ['<c-a>'],
+        \ }
+
+"" 引数なしで実行したとき、NERDTreeを実行する
+"let file_name = expand("%:p")
+"if has('vim_starting') &&  file_name == ""
+""    autocmd VimEnter * call NERDTree()
+"    autocmd VimEnter * execute 'NERDTree ./'
+"endif
 
 set foldmethod=marker
 
@@ -76,13 +149,11 @@ let g:quickrun_config.php = {
 \ 'exec' : '%c %o %a %s',
 \ }
 
-source ~/.vim/php-doc.vim
-
 let g:pdv_cfg_Author = "yosugi <your@email.address.com>"
 let g:pdv_cfg_Copyright = ""
 let g:pdv_cfg_License = "MIT Lisence"
 
-inoremap <C-@> <ESC>:call PhpDocSingle()<CR>i
-nnoremap <C-@> :call PhpDocSingle()<CR>
-vnoremap <C-@> :call PhpDocRange()<CR>
+inoremap <C-k> <ESC>:call PhpDocSingle()<CR>i
+nnoremap <C-k> :call PhpDocSingle()<CR>
+vnoremap <C-k> :call PhpDocRange()<CR>
 
