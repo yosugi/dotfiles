@@ -6,6 +6,7 @@ set laststatus=2
 
 set incsearch
 set ignorecase
+set smartcase
 set hlsearch
 set showcmd
 
@@ -17,8 +18,12 @@ nnoremap <silent><C-L> :noh<CR>:redraw<CR>
 " Use CTRL-Q to do what CTRL-V used to do
 nnoremap <C-Q> <C-V>
 
-nnoremap ;w :<C-u>w<CR>
-nnoremap ;q :<C-u>q<CR>
+"Prefix-key
+nnoremap [prefix] <nop>
+nmap ; [prefix]
+
+nnoremap <silent>[prefix]w :<C-u>up<CR>
+nnoremap <silent>[prefix]q :<C-u>q<CR>
 
 
 " insertモードから抜ける
@@ -78,15 +83,19 @@ filetype plugin indent on
 
 " unite.vim の設定
 " バッファ一覧
-nnoremap <silent> ;ub :<C-u>Unite buffer<CR>
+nnoremap <silent> [prefix]ub :<C-u>Unite buffer<CR>
 " ファイル一覧
-nnoremap <silent> ;uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [prefix]uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
-nnoremap <silent> ;ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [prefix]ur :<C-u>Unite -buffer-name=register register<CR>
 " 最近使用したファイル一覧
-nnoremap <silent> ;um :<C-u>Unite file_mru<CR>
+nnoremap <silent> [prefix]um :<C-u>Unite file_mru<CR>
 " 全部乗せ
-nnoremap <silent> ;ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [prefix]ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+
+"history/yankの有効化
+let g:unite_source_history_yank_enable=1  
+nnoremap <silent> [prefix]uy :<C-u>Unite history/yank<CR>
 
 "ctrlp の設定
 set wildignore+=*/cache/*,
