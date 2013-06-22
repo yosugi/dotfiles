@@ -13,7 +13,7 @@ set showcmd
 syntax enable
 
 " C-L でハイライトを消す
-nnoremap <silent><C-L> :noh<CR>:redraw<CR>
+nnoremap <silent><C-L> :noh<CR>:redraw<CR>:echo ""<CR>
 
 " Use CTRL-Q to do what CTRL-V used to do
 nnoremap <C-Q> <C-V>
@@ -25,11 +25,35 @@ nmap ; [prefix]
 nnoremap <silent>[prefix]w :<C-u>up<CR>
 nnoremap <silent>[prefix]q :<C-u>q<CR>
 
+"mswin.vimを読み込む
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+" mswin.vim を一部元に戻す
+"noremap <C-A> <C-A>
+""inoremap <C-A> <C-A>
+"cnoremap <C-A> <C-A>
+"onoremap <C-A> <C-A>
+"snoremap <C-A> <C-A>
+"xnoremap <C-A> <C-A>
+
 
 " insertモードから抜ける
-inoremap <silent> jj <ESC>
+inoremap <silent> jj <ESC><Right>
 inoremap <silent> <C-j> j
 
+inoremap "" ""<Left>
+inoremap '' ''<Left>
+inoremap <> <><Left>
+
+inoremap <C-e> <C-o>$
+function! ToggleBol()
+    let col = virtcol('.')
+    let cmd = (col == 1) ? '^' : '0'
+    execute "normal! " . cmd
+endfunction
+inoremap <C-a> <C-o>:call ToggleBol()<CR>
+        
 set tabstop=4
 set autoindent
 set expandtab
@@ -40,18 +64,6 @@ highlight StatusLine term=bold cterm=bold ctermfg=black ctermbg=white
 highlight StatusLineNC term=bold cterm=bold ctermfg=black ctermbg=white
 highlight TabLineSel term=bold cterm=bold ctermfg=black ctermbg=white
 highlight TabLineFill term=bold cterm=bold ctermfg=black ctermbg=white
-
-"mswin.vimを読み込む
-source $VIMRUNTIME/mswin.vim
-behave mswin
-
-" mswin.vim を一部元に戻す
-noremap <C-A> <C-A>
-inoremap <C-A> <C-A>
-cnoremap <C-A> <C-A>
-onoremap <C-A> <C-A>
-snoremap <C-A> <C-A>
-xnoremap <C-A> <C-A>
 
 "NeoBundle
 " https://github.com/Shougo/neobundle.vim
@@ -73,7 +85,9 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'docteurklein/php-getter-setter.vim'
 NeoBundle 'bthemad/php-doc.vim'
 "リポジトリを持たないプラグイン
@@ -162,7 +176,7 @@ let g:pdv_cfg_Author = "yosugi <your@email.address.com>"
 let g:pdv_cfg_Copyright = ""
 let g:pdv_cfg_License = "MIT Lisence"
 
-inoremap <C-k> <ESC>:call PhpDocSingle()<CR>i
+"inoremap <C-k> <ESC>:call PhpDocSingle()<CR>i
 nnoremap <C-k> :call PhpDocSingle()<CR>
 vnoremap <C-k> :call PhpDocRange()<CR>
 
