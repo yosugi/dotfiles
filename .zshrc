@@ -138,9 +138,9 @@ fi
 
 stty stop undef
 stty start undef
-stty kill undef
-stty lnext undef
-stty intr undef
+#stty lnext undef
+#stty kill undef
+#stty intr undef
 
 hash -d tmp=/tmp
 hash -d log=/var/log
