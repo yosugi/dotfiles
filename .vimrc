@@ -39,7 +39,7 @@ behave mswin
 
 
 " insertモードから抜ける
-inoremap <silent> jj <ESC><Right>
+inoremap <silent> jj <ESC>
 inoremap <silent> <C-j> j
 
 inoremap "" ""<Left>
