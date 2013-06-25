@@ -42,10 +42,6 @@ behave mswin
 inoremap <silent> jj <ESC>
 inoremap <silent> <C-j> j
 
-inoremap "" ""<Left>
-inoremap '' ''<Left>
-inoremap <> <><Left>
-
 inoremap <C-e> <C-o>$
 function! ToggleBol()
     let col = virtcol('.')
