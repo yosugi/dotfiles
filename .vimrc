@@ -12,6 +12,11 @@ set showcmd
 
 syntax enable
 
+set tabstop=4
+set autoindent
+set expandtab
+set shiftwidth=4
+
 " C-L でハイライトを消す
 nnoremap <silent><C-L> :noh<CR>:redraw<CR>:echo ""<CR>
 
@@ -49,12 +54,12 @@ function! ToggleBol()
     execute "normal! " . cmd
 endfunction
 inoremap <C-a> <C-o>:call ToggleBol()<CR>
-        
-set tabstop=4
-set autoindent
-set expandtab
-set shiftwidth=4
 
+" paste モード
+autocmd InsertLeave * setlocal nopaste
+nnoremap [prefix]pi :setlocal paste<CR>i
+nnoremap [prefix]po :setlocal paste<CR>o
+        
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 highlight StatusLine term=bold cterm=bold ctermfg=black ctermbg=white
 highlight StatusLineNC term=bold cterm=bold ctermfg=black ctermbg=white
@@ -109,7 +114,7 @@ nnoremap <silent> [prefix]uy :<C-u>Unite history/yank<CR>
 
 "ctrlp の設定
 set wildignore+=*/cache/*,
-let g:ctrlp_map = ';p'
+let g:ctrlp_map = ';cp'
 let g:ctrlp_by_filename = 0
 let g:ctrlp_regexp = 1
 let g:ctrlp_prompt_mappings = {
