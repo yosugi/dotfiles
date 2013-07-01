@@ -25,7 +25,7 @@ nnoremap <C-Q> <C-V>
 
 "Prefix-key
 nnoremap [prefix] <nop>
-nmap ; [prefix]
+nmap <Space> [prefix]
 
 nnoremap <silent>[prefix]w :<C-u>up<CR>
 nnoremap <silent>[prefix]q :<C-u>q<CR>
@@ -44,9 +44,11 @@ behave mswin
 
 
 " insertモードから抜ける
-inoremap <silent> jj <ESC>
+inoremap <silent> jj <ESC>:<C-u>up<CR>
 inoremap <silent> <C-j> j
 
+inoremap <C-f> <C-o>l
+inoremap <C-b> <C-o>h
 inoremap <C-e> <C-o>$
 function! ToggleBol()
     let col = virtcol('.')
