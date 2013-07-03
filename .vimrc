@@ -17,6 +17,9 @@ set autoindent
 set expandtab
 set shiftwidth=4
 
+set foldmethod=marker
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+
 " C-L でハイライトを消す
 nnoremap <silent><C-L> :noh<CR>:redraw<CR>:echo ""<CR>
 
@@ -30,18 +33,25 @@ nmap <Space> [prefix]
 nnoremap <silent>[prefix]w :<C-u>up<CR>
 nnoremap <silent>[prefix]q :<C-u>q<CR>
 
+" タブの切り替え
+if v:version >= 700
+  nnoremap } gt
+  nnoremap { gT
+endif
+" 最後に編集した行にジャンプ
+nnoremap gb `.
+
 "mswin.vimを読み込む
 source $VIMRUNTIME/mswin.vim
 behave mswin
 
 " mswin.vim を一部元に戻す
-"noremap <C-A> <C-A>
-""inoremap <C-A> <C-A>
+"nnoremap <C-A> <C-A>
+"inoremap <C-A> <C-A>
 "cnoremap <C-A> <C-A>
 "onoremap <C-A> <C-A>
 "snoremap <C-A> <C-A>
 "xnoremap <C-A> <C-A>
-
 
 " insertモードから抜ける
 inoremap <silent> jj <ESC>:<C-u>up<CR>
@@ -57,8 +67,14 @@ function! ToggleBol()
 endfunction
 inoremap <C-a> <C-o>:call ToggleBol()<CR>
 
+inoremap {} {}<Left>
+inoremap [] []<Left>
+inoremap () ()<Left>
+inoremap "" ""<Left>
+inoremap '' ''<Left>
+
 " paste モード
-autocmd InsertLeave * setlocal nopaste
+"autocmd InsertLeave * setlocal nopaste
 nnoremap [prefix]pi :setlocal paste<CR>i
 nnoremap [prefix]po :setlocal paste<CR>o
         
@@ -91,6 +107,7 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'kana/vim-smartchr'
 NeoBundle 'docteurklein/php-getter-setter.vim'
 NeoBundle 'bthemad/php-doc.vim'
 "リポジトリを持たないプラグイン
@@ -130,17 +147,11 @@ let g:ctrlp_prompt_mappings = {
 "    autocmd VimEnter * execute 'NERDTree ./'
 "endif
 
-set foldmethod=marker
-
-set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
-
-" タブの切り替えを
-" CTRL+Tab SHIFT+Tabで行うように
-"
-if v:version >= 700
-  nnoremap <C-Tab>   gt
-  nnoremap <C-S-Tab> gT
-endif
+" smartchr の設定
+inoremap <expr> = smartchr#one_of(' = ', ' == ', '=')
+inoremap <expr> ; smartchr#one_of(';', ';<ESC>')
+inoremap <expr> . smartchr#loop('.', '->', '...')
+inoremap <expr> , smartchr#one_of(', ', ' => ', ',')
 
 " qfixappにruntimepathを通す(パスは環境に合わせてください)
 set runtimepath+=c:/home/yosugi/softs/gvim/qfixapp
