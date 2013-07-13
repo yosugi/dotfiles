@@ -77,12 +77,28 @@ inoremap '' ''<Left>
 "autocmd InsertLeave * setlocal nopaste
 nnoremap [prefix]pi :setlocal paste<CR>i
 nnoremap [prefix]po :setlocal paste<CR>o
+nnoremap [prefix]pt :setlocal paste! paste?<CR>
+augroup PasteInsert
+    autocmd!
+    autocmd InsertLeave * setlocal nopaste
+augroup END
+ 
+command! -nargs=0 PasteInsertOff autocmd PasteInsert InsertLeave * setlocal nopaste
+command! -nargs=0 PasteInsertOn autocmd! PasteInsert
         
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 highlight StatusLine term=bold cterm=bold ctermfg=black ctermbg=white
 highlight StatusLineNC term=bold cterm=bold ctermfg=black ctermbg=white
 highlight TabLineSel term=bold cterm=bold ctermfg=black ctermbg=white
 highlight TabLineFill term=bold cterm=bold ctermfg=black ctermbg=white
+
+"全角スペースを　で表示
+highlight JpSpace cterm=underline ctermfg=Blue guifg=Blue
+au BufRead,BufNew * match JpSpace /　/
+
+"タブを見えるように設定
+set list
+set listchars=tab:>-,trail:-,nbsp:-,extends:>,precedes:<,
 
 "NeoBundle
 " https://github.com/Shougo/neobundle.vim
@@ -148,10 +164,26 @@ let g:ctrlp_prompt_mappings = {
 "endif
 
 " smartchr の設定
-inoremap <expr> = smartchr#one_of(' = ', ' == ', '=')
+"inoremap <expr> = smartchr#one_of(' = ', ' == ', '=')
 inoremap <expr> ; smartchr#one_of(';', ';<ESC>')
 inoremap <expr> . smartchr#loop('.', '->', '...')
-inoremap <expr> , smartchr#one_of(', ', ' => ', ',')
+inoremap <expr> , smartchr#loop(',', '=>')
+inoremap <expr> ; smartchr#loop(';', ';<ESC>:up<CR>')
+
+" カレントディレクトリを開いてるファイルにする
+" ref. http://vim-users.jp/2009/09/hack69/
+command! -nargs=? -complete=dir -bang CdCurrent call s:ChangeCurrentDir('<args>', '<bang>')
+function! s:ChangeCurrentDir(directory, bang)
+    if a:directory == ''
+        lcd %:p:h
+    else
+        execute 'lcd' . a:directory
+    endif
+
+    if a:bang != ''
+        pwd
+    endif
+endfunction
 
 " qfixappにruntimepathを通す(パスは環境に合わせてください)
 set runtimepath+=c:/home/yosugi/softs/gvim/qfixapp
