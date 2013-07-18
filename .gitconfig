@@ -1,19 +1,25 @@
+[core]
+    editor = vim -c \"set fenc=utf-8\"
+    autocrlf = input
 [user]
-	name = yosugi
-	email = your@email.address.com
+    name = yosugi
+    email = your@email.address.com
 [merge]
-        tool = vimdiff
+    tool = vimdiff
 [diff]
-        tool = vimdiff
+    tool = vimdiff
 [difftool]
-        prompt = false
+    prompt = false
 [alias]
-        co   = checkout
-        st   = status
-        br   = branch
-        pr   = pull --rebase
-        ru   = remote update
-        mnff = merge --no-ff
-        hist = log --oneline --decorate --graph
+    co      = checkout
+    st      = status
+    br      = branch
+    pr      = pull --rebase
+    ru      = remote update
+    mnff    = merge --no-ff
+    hist    = log --oneline --decorate --graph
+    now     = commit -am 'Temporary commit'
+    cancel  = reset --soft HEAD^
+
 [help]
-        autocorrect = 1
+    autocorrect = 1
