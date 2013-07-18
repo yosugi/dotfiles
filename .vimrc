@@ -7,6 +7,7 @@ set laststatus=2
 set incsearch
 set ignorecase
 set smartcase
+set smarttab
 set hlsearch
 set showcmd
 
@@ -46,16 +47,20 @@ source $VIMRUNTIME/mswin.vim
 behave mswin
 
 " mswin.vim を一部元に戻す
-"nnoremap <C-A> <C-A>
-"inoremap <C-A> <C-A>
-"cnoremap <C-A> <C-A>
-"onoremap <C-A> <C-A>
-"snoremap <C-A> <C-A>
-"xnoremap <C-A> <C-A>
+nnoremap <C-A> <C-A>
+inoremap <C-A> <C-A>
+cnoremap <C-A> <C-A>
+onoremap <C-A> <C-A>
+snoremap <C-A> <C-A>
+xnoremap <C-A> <C-A>
+nnoremap <C-Y> <C-Y>
+inoremap <C-Y> <C-Y>
+nnoremap <C-Z> <C-Z>
+inoremap <C-Z> <C-Z>
 
 " insertモードから抜ける
-inoremap <silent> jj <ESC>:<C-u>up<CR>
-inoremap <silent> <C-j> j
+"inoremap <silent> jj <ESC>:<C-u>up<CR>
+"inoremap <silent> <C-j> j
 
 inoremap <C-f> <C-o>l
 inoremap <C-b> <C-o>h
@@ -66,12 +71,6 @@ function! ToggleBol()
     execute "normal! " . cmd
 endfunction
 inoremap <C-a> <C-o>:call ToggleBol()<CR>
-
-inoremap {} {}<Left>
-inoremap [] []<Left>
-inoremap () ()<Left>
-inoremap "" ""<Left>
-inoremap '' ''<Left>
 
 " paste モード
 "autocmd InsertLeave * setlocal nopaste
@@ -149,7 +148,7 @@ nnoremap <silent> [prefix]uy :<C-u>Unite history/yank<CR>
 
 "ctrlp の設定
 set wildignore+=*/cache/*,
-let g:ctrlp_map = ';cp'
+let g:ctrlp_map = ' cp'
 let g:ctrlp_by_filename = 0
 let g:ctrlp_regexp = 1
 let g:ctrlp_prompt_mappings = {
@@ -169,6 +168,13 @@ inoremap <expr> ; smartchr#one_of(';', ';<ESC>')
 inoremap <expr> . smartchr#loop('.', '->', '...')
 inoremap <expr> , smartchr#loop(',', '=>')
 inoremap <expr> ; smartchr#loop(';', ';<ESC>:up<CR>')
+inoremap <expr> j smartchr#loop('j', '<ESC>:up<CR>')
+
+inoremap <expr> { smartchr#loop('{', '{}<Left>')
+inoremap <expr> [ smartchr#loop('[', '[]<Left>')
+inoremap <expr> ( smartchr#loop('(', '()<Left>')
+inoremap <expr> " smartchr#loop('"', '""<Left>')
+inoremap <expr> ' smartchr#loop('''', '''''<Left>')
 
 " カレントディレクトリを開いてるファイルにする
 " ref. http://vim-users.jp/2009/09/hack69/
@@ -212,7 +218,6 @@ let g:quickrun_config={'*': {'split': ''}}
 "\ }
 
 let g:quickrun_config.php = {
-\ 'command' : 'c:/home/xampp/php/php.exe',
 \ 'cmdopt' : '-f',
 \ 'args' : '',
 \ 'exec' : '%c %o %a %s',
