@@ -34,6 +34,10 @@ nmap <Space> [prefix]
 nnoremap <silent>[prefix]w :<C-u>up<CR>
 nnoremap <silent>[prefix]q :<C-u>q<CR>
 
+" タグジャンプする時に新しいタブで開く
+" see. http://kannokanno.hatenablog.com/entry/20121127/1354019826
+nnoremap <silent>[prefix]<C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
+
 " タブの切り替え
 if v:version >= 700
   nnoremap } gt
