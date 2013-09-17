@@ -1,5 +1,7 @@
 set show-date = local
 
+bind generic T toggle-rev-graph
+bind generic g move-first-line
 bind generic G move-last-line
 bind diff l scroll-right
 bind diff h scroll-left
