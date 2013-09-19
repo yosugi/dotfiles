@@ -20,6 +20,7 @@
     hist    = log --oneline --decorate --graph
     now     = commit -am 'Temporary commit'
     cancel  = reset --soft HEAD^
+    reamend = commit --amend -C HEAD
 
 [help]
     autocorrect = 1
