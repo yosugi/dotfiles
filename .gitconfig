@@ -17,7 +17,7 @@
     pr      = pull --rebase
     ru      = remote update
     mnff    = merge --no-ff
-    hist    = log --oneline --decorate --graph
+    olog    = log --oneline --date=iso
     now     = commit -am 'Temporary commit'
     cancel  = reset --soft HEAD^
     reamend = commit --amend -C HEAD
