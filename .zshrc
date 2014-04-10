@@ -73,6 +73,8 @@ RPROMPT='`rprompt-git-current-branch`'
 
 zstyle ':completion:*:*:git:*' script ~/.git-completion.sh
 
+# search = find + grep
+# http://jampin.blog20.fc2.com/blog-entry-16.html
 function search() {
 if [ $# -lt 1 ] ; then
     print "error: few args!"
