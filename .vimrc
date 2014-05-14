@@ -117,7 +117,7 @@ if has('vim_starting')
 endif
 
 " gitを使ったプラグインマネージャ
-NeoBundle 'Shougo/neobundle.vim'
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tpope/vim-fugitive'
