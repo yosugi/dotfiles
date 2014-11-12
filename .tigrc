@@ -6,3 +6,5 @@ bind generic G move-last-line
 bind diff l scroll-right
 bind diff h scroll-left
 bind diff ; view-next
+
+set diff-options = -m --first-parent
