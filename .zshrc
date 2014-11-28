@@ -11,6 +11,12 @@ alias la="ls -a"
 alias ll="ls -al"
 alias view='vim -R'
 
+# global alias
+alias -g @g="| grep"
+alias -g @l="| less"
+alias -g @x="| xargs"
+alias -g @v="| vim -"
+
 bindkey -v               # vi key bindings
 bindkey '^P' up-line-or-history
 bindkey '^N' down-line-or-history
