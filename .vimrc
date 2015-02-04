@@ -113,11 +113,12 @@ set listchars=tab:>-,trail:-,nbsp:-,extends:>,precedes:<,
 filetype plugin indent off " required!
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
-    call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 
+call neobundle#begin(expand('~/.vim/bundle/'))
 " gitを使ったプラグインマネージャ
 NeoBundleFetch 'Shougo/neobundle.vim'
+call neobundle#end()
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tpope/vim-fugitive'
