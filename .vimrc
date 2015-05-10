@@ -120,18 +120,18 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 call neobundle#end()
 
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'kana/vim-smartchr'
-NeoBundle 'docteurklein/php-getter-setter.vim'
-NeoBundle 'bthemad/php-doc.vim'
+NeoBundleFetch 'Shougo/unite.vim'
+NeoBundleFetch 'tpope/vim-fugitive'
+NeoBundleFetch 'gregsexton/gitv'
+NeoBundleFetch 'kien/ctrlp.vim'
+NeoBundleFetch 'thinca/vim-quickrun'
+NeoBundleFetch 'scrooloose/nerdtree'
+NeoBundleFetch 'tpope/vim-surround'
+NeoBundleFetch 'kana/vim-smartchr'
+NeoBundleFetch 'docteurklein/php-getter-setter.vim'
+NeoBundleFetch 'bthemad/php-doc.vim'
 "リポジトリを持たないプラグイン
-"NeoBundle 'im_control', {'type' : 'nosync', 'base' : '~/.vim/bundle'}
+"NeoBundleFetch 'im_control', {'type' : 'nosync', 'base' : '~/.vim/bundle'}
 
 filetype plugin indent on
 
