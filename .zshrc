@@ -152,3 +152,20 @@ stty start undef
 
 hash -d tmp=/tmp
 hash -d log=/var/log
+
+# http://qiita.com/hamaco/items/4eb19da6cf216104adf0
+HARDCOPYFILE=~/tmp/tmux-hardcopy
+touch $HARDCOPYFILE
+
+dabbrev-complete () {
+  local reply lines=80
+
+  tmux capture-pane && tmux save-buffer -b 0 $HARDCOPYFILE && tmux delete-buffer -b 0
+  reply=($(sed '/^$/d' $HARDCOPYFILE | sed '$ d' | tail -$lines))
+
+  compadd -Q - "${reply[@]%[*/=@|]}"
+}
+
+zle -C dabbrev-complete menu-complete dabbrev-complete
+bindkey '^o' dabbrev-complete
+bindkey '^o^_' reverse-menu-complete
