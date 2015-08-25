@@ -42,6 +42,8 @@ nnoremap <silent>[prefix]<C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 if v:version >= 700
   nnoremap } gt
   nnoremap { gT
+  nnoremap [prefix]} }
+  nnoremap [prefix]{ {
 endif
 " 最後に編集した行にジャンプ
 nnoremap gb `.
