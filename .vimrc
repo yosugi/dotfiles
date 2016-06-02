@@ -65,8 +65,8 @@ nnoremap <C-Z> <C-Z>
 inoremap <C-Z> <C-Z>
 
 " insertモードから抜ける
-"inoremap <silent> jj <ESC>:<C-u>up<CR>
-"inoremap <silent> <C-j> j
+inoremap <silent> jj <ESC>:<C-u>up<CR>
+inoremap <silent> <C-j> j
 
 inoremap <C-f> <C-o>l
 inoremap <C-b> <C-o>h
@@ -120,20 +120,21 @@ endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 " gitを使ったプラグインマネージャ
 NeoBundleFetch 'Shougo/neobundle.vim'
-call neobundle#end()
 
 NeoBundleFetch 'Shougo/unite.vim'
-NeoBundleFetch 'tpope/vim-fugitive'
-NeoBundleFetch 'gregsexton/gitv'
+NeoBundleFetch 'Shougo/neomru.vim'
+"NeoBundleFetch 'tpope/vim-fugitive'
+"NeoBundleFetch 'gregsexton/gitv'
 NeoBundleFetch 'kien/ctrlp.vim'
 NeoBundleFetch 'thinca/vim-quickrun'
-NeoBundleFetch 'scrooloose/nerdtree'
-NeoBundleFetch 'tpope/vim-surround'
-NeoBundleFetch 'kana/vim-smartchr'
+"NeoBundleFetch 'scrooloose/nerdtree'
+"NeoBundleFetch 'tpope/vim-surround'
+"NeoBundleFetch 'kana/vim-smartchr'
 NeoBundleFetch 'docteurklein/php-getter-setter.vim'
 NeoBundleFetch 'bthemad/php-doc.vim'
 "リポジトリを持たないプラグイン
 "NeoBundleFetch 'im_control', {'type' : 'nosync', 'base' : '~/.vim/bundle'}
+call neobundle#end()
 
 filetype plugin indent on
 
@@ -156,6 +157,7 @@ nnoremap <silent> [prefix]uy :<C-u>Unite history/yank<CR>
 "ctrlp の設定
 set wildignore+=*/cache/*,
 let g:ctrlp_map = ' cp'
+let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_by_filename = 0
 let g:ctrlp_regexp = 1
 let g:ctrlp_prompt_mappings = {
@@ -171,17 +173,17 @@ let g:ctrlp_prompt_mappings = {
 
 " smartchr の設定
 "inoremap <expr> = smartchr#one_of(' = ', ' == ', '=')
-inoremap <expr> ; smartchr#one_of(';', ';<ESC>')
-inoremap <expr> . smartchr#loop('.', '->', '...')
-inoremap <expr> , smartchr#loop(',', '=>')
-inoremap <expr> ; smartchr#loop(';', ';<ESC>:up<CR>')
-inoremap <expr> j smartchr#loop('j', '<ESC>:up<CR>')
-
-inoremap <expr> { smartchr#loop('{', '{}<Left>')
-inoremap <expr> [ smartchr#loop('[', '[]<Left>')
-inoremap <expr> ( smartchr#loop('(', '()<Left>')
-inoremap <expr> " smartchr#loop('"', '""<Left>')
-inoremap <expr> ' smartchr#loop('''', '''''<Left>')
+"inoremap <expr> ; smartchr#one_of(';', ';<ESC>')
+"inoremap <expr> . smartchr#loop('.', '->', '...')
+"inoremap <expr> , smartchr#loop(',', '=>')
+"inoremap <expr> ; smartchr#loop(';', ';<ESC>:up<CR>')
+"inoremap <expr> j smartchr#loop('j', '<ESC>:up<CR>')
+"
+"inoremap <expr> { smartchr#loop('{', '{}<Left>')
+"inoremap <expr> [ smartchr#loop('[', '[]<Left>')
+"inoremap <expr> ( smartchr#loop('(', '()<Left>')
+"inoremap <expr> " smartchr#loop('"', '""<Left>')
+"inoremap <expr> ' smartchr#loop('''', '''''<Left>')
 
 " カレントディレクトリを開いてるファイルにする
 " ref. http://vim-users.jp/2009/09/hack69/
@@ -238,3 +240,4 @@ let g:pdv_cfg_License = "MIT Lisence"
 nnoremap <C-k> :call PhpDocSingle()<CR>
 vnoremap <C-k> :call PhpDocRange()<CR>
 
+autocmd FileType php set makeprg=php\ -l\ %

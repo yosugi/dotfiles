@@ -98,7 +98,7 @@ else
     arg_pattern=$2
     arg_word=$3
 fi
-find $arg_path -name $arg_pattern -print | xargs grep -n $arg_word
+find $arg_path -name $arg_pattern -type f -print | xargs grep -n $arg_word
 }
 
 function isearch() {
@@ -169,3 +169,9 @@ dabbrev-complete () {
 zle -C dabbrev-complete menu-complete dabbrev-complete
 bindkey '^o' dabbrev-complete
 bindkey '^o^_' reverse-menu-complete
+
+zstyle ':completion:*:*:git:*' script ~/.zsh/completion/git-completion.bash
+fpath=(~/.zsh/completion $fpath)
+
+autoload -U compinit
+compinit -u
