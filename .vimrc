@@ -139,20 +139,23 @@ call neobundle#end()
 filetype plugin indent on
 
 " unite.vim の設定
+nnoremap [unite]    <Nop>
+nmap     [prefix]u [unite]
+
 " バッファ一覧
-nnoremap <silent> [prefix]ub :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 " ファイル一覧
-nnoremap <silent> [prefix]uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
-nnoremap <silent> [prefix]ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 " 最近使用したファイル一覧
-nnoremap <silent> [prefix]um :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 " 全部乗せ
-nnoremap <silent> [prefix]ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 
 "history/yankの有効化
 let g:unite_source_history_yank_enable=1  
-nnoremap <silent> [prefix]uy :<C-u>Unite history/yank<CR>
+nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 
 "ctrlp の設定
 set wildignore+=*/cache/*,
