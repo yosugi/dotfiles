@@ -1,6 +1,8 @@
-set show-date = local
+#set show-date = local
 
-bind generic T toggle-rev-graph
+bind main C !?git checkout %(commit)
+
+bind generic T :toggle commit-title-graph
 bind generic g move-first-line
 bind generic G move-last-line
 bind diff l scroll-right
@@ -8,3 +10,8 @@ bind diff h scroll-left
 bind diff ; view-next
 
 set diff-options = -m --first-parent
+
+# main viewの左端にコミットIDを表示する
+set main-view = date id author commit-title:graph=yes,refs=yes
+# デフォルト
+# set main-view = date author commit-title:graph=yes,refs=yes
